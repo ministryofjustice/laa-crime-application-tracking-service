@@ -1,4 +1,4 @@
-crime-application-tracking-service/.gradle
+crime-application-tracking/.gradle
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
