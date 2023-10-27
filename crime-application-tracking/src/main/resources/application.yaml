@@ -1,0 +1,13 @@
+server:
+  port: 8490
+
+management:
+  server:
+    port: 8500
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always

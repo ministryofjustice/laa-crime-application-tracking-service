@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8490:8490"
+      - "8500:8500"
