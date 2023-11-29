@@ -1,0 +1,13 @@
+server:
+  port: 8490
+
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${crime-application-tracking.security.issuer-uri}
+
+crime-application-tracking:
+  security:
+    issuer-uri: http://localhost:${server.port}
