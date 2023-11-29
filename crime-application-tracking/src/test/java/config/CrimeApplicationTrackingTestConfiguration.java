@@ -10,7 +10,6 @@ import java.time.Instant;
 import java.util.Map;
 
 @TestConfiguration
-@ComponentScan(basePackages = {"uk.gov.justice.laa.crime.commons.tracing"})
 public class CrimeApplicationTrackingTestConfiguration {
 
     static final String SUB = "sub";

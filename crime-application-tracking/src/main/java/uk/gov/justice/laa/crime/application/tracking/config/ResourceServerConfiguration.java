@@ -38,7 +38,7 @@ public class ResourceServerConfiguration {
                 .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/open-api/**").permitAll()
-                        .requestMatchers("/actuator/**").hasAuthority(SCOPE_ATS_STANDARD)
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/api/**").hasAuthority(SCOPE_ATS_STANDARD)
                         .anyRequest().authenticated())
                 .oauth2ResourceServer((oauth2) -> oauth2
