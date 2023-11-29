@@ -11,3 +11,10 @@ management:
   endpoint:
     health:
       show-details: always
+
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI}
