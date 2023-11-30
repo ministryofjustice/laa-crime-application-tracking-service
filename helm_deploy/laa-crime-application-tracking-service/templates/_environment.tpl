@@ -12,4 +12,6 @@ env:
     value: {{ .Values.java.host_env }}
   - name: SENTRY_SAMPLE_RATE
     value: {{ .Values.sentry.sampleRate | quote }}
+  - name: JWT_ISSUER_URI
+    value: {{ .Values.jwt.issuerUri }}
 {{- end -}}
