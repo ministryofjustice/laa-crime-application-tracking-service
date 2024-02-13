@@ -16,7 +16,7 @@ java {
 }
 
 def versions = [
-		pitest                  : "1.15.6",
+		pitest                  : "1.15.7",
 		sentryVersion			: "7.2.0"
 ]
 configurations {
