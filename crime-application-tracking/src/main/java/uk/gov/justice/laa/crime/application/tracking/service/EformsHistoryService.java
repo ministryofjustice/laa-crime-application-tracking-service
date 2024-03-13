@@ -21,11 +21,12 @@ public class EformsHistoryService {
         log.info("Start - call to Create Eforms History API {}", usn);
         EformsHistory eformsHistory = EformsHistory.builder()
                 .usn(usn)
+                .repId(applicationTrackingOutputResult.getMaatRef())
                 .action(String.valueOf(applicationTrackingOutputResult.getAction()))
+                .keyId(applicationTrackingOutputResult.getActionKeyId())
                 .userCreated(applicationTrackingOutputResult.getUserCreated()).build();
         maatCourtDataApiClient.createEformsHistoryRecord(eformsHistory);
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(() -> log.info("Eform History Record Created Successfully"));
-
+                .observe(() -> log.info("Eform History Record is Created Successfully"));
     }
 }

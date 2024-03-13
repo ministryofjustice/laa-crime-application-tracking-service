@@ -22,11 +22,6 @@
       "nullable": true,
       "description": "Maat_ref or Finance assessment id or Passport assessment id"
     },
-    "statusCode": {
-      "type": "string",
-      "nullable": true,
-      "description": "Processing"
-    },
     "caseId": {
       "type": "string",
       "nullable": true
@@ -54,7 +49,8 @@
         },
         "iojAppealResult": {
           "type": "string",
-          "nullable": true
+          "nullable": true,
+          "enum": ["PASS", "FAIL"]
         },
         "iojAssessorName": {
           "type": "string",
@@ -77,7 +73,8 @@
         },
         "passportResult": {
           "type": "string",
-          "nullable": true
+          "nullable": true,
+          "enum": ["PASS", "FAIL", "FAIL CONTINUE", "TEMP"]
         },
         "passportAssessorName": {
           "type": "string",
@@ -109,7 +106,8 @@
         },
         "meansAssessmentResult": {
           "type": "string",
-          "nullable": true
+          "nullable": true,
+          "enum": ["FULL", "PASS", "FAIL", "HARDSHIP APPLICATION", "INEL"]
         },
         "meansAssessorName": {
           "type": "string",
@@ -132,7 +130,8 @@
         },
         "hardshipResult": {
           "type": "string",
-          "nullable": true
+          "nullable": true,
+          "enum": ["PASS", "FAIL"]
         },
         "hardshipType": {
           "type": "string",
@@ -149,6 +148,7 @@
     "assessmentType": {
       "type": "string",
       "nullable": true,
+      "enum": ["MCHARDSHIP", "MEANS_INIT", "CCHARDSHIP", "IOJ", "MEANS_FULL", "PASSPORT"],
       "description": "IOJ type or Finance assessment type or Passport assessment type or Hardship type"
     },
     "dwpResult": {

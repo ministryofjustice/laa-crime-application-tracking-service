@@ -28,6 +28,6 @@ public class EformAuditService {
                 .statusCode(STATUS_CODE).build();
         maatCourtDataApiClient.createEformsAuditRecord(eformsAudit);
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(() -> log.info("Eform Audit Record Created Successfully"));
+                .observe(() -> log.info("Eform Audit Record is Created Successfully"));
     }
 }
