@@ -8,7 +8,7 @@
     },
     "maatRef": {
       "type": "integer",
-      "nullable": true,
+      "nullable": false,
       "description": "MAAT / Rep Id"
     },
     "action": {

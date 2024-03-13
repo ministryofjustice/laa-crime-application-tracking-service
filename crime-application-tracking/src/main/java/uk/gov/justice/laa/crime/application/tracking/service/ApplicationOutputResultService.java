@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.application.tracking.model.*;
-import uk.gov.justice.laa.crime.application.tracking.util.OutputResultUtil;
+import uk.gov.justice.laa.crime.application.tracking.util.BuildRequestsUtil;
+import uk.gov.justice.laa.crime.application.tracking.util.FundingDecisionUtil;
 
 import java.util.Objects;
 import java.util.function.BiPredicate;
@@ -14,6 +15,7 @@ import java.util.function.BiPredicate;
 @Slf4j
 public class ApplicationOutputResultService {
 
+    public static final String Z = "Z";
     private final AssessmentAssessorService assessmentAssessorService;
     private final EformsDecisionHistoryService eformsDecisionHistoryService;
     private final EformResultsService eformResultsService;
@@ -21,7 +23,7 @@ public class ApplicationOutputResultService {
 
     public void processOutputResult(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         if (!isOutstandingAssessment(applicationTrackingOutputResult.getMaatRef())) {
-            String fundingDecision = OutputResultUtil.getFundingDecision(applicationTrackingOutputResult);
+            String fundingDecision = FundingDecisionUtil.getFundingDecision(applicationTrackingOutputResult);
             getAssessorNames(applicationTrackingOutputResult);
             createEformDecisionHistoryRecord(applicationTrackingOutputResult, fundingDecision);
             createEformResultRecord(applicationTrackingOutputResult, fundingDecision);
@@ -68,7 +70,7 @@ public class ApplicationOutputResultService {
     private void createEformDecisionHistoryRecord(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         if (Objects.nonNull(applicationTrackingOutputResult.getRepDecision())
                 || Objects.nonNull(applicationTrackingOutputResult.getCcRepDecision())) {
-            EformsDecisionHistory eformsDecisionHistory = OutputResultUtil.buildEformDecisionHistory(applicationTrackingOutputResult, fundingDecision);
+            EformsDecisionHistory eformsDecisionHistory = BuildRequestsUtil.buildEformDecisionHistory(applicationTrackingOutputResult, fundingDecision);
             eformsDecisionHistoryService.createEformsDecisionHistoryRecord(eformsDecisionHistory);
         }
     }
@@ -85,11 +87,18 @@ public class ApplicationOutputResultService {
 
     private boolean checkResultChanged(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         EformsDecisionHistory previousResult = eformsDecisionHistoryService.getPreviousDecisionResult(applicationTrackingOutputResult.getUsn());
-        if (!Objects.isNull(previousResult.getId())) {
-            BiPredicate<ApplicationTrackingOutputResult, EformsDecisionHistory> hasResultChanged = (outputResult, previousRecord) -> Objects.requireNonNullElse(outputResult.getIoj().getIojResult(), "Z").equals(Objects.requireNonNullElse(previousRecord.getIojResult(), "Z"))
-                    && Objects.requireNonNullElse(outputResult.getMeansAssessment().getMeansAssessmentResult(), "Z").equals(Objects.requireNonNullElse(previousRecord.getMeansResult(), "Z"))
-                    && Objects.requireNonNullElse(outputResult.getPassport().getPassportResult(), "Z").equals(Objects.requireNonNullElse(previousRecord.getPassportResult(), "Z"))
-                    && Objects.requireNonNullElse(fundingDecision, "Z").equals(Objects.requireNonNullElse(previousRecord.getFundingDecision(), "Z"));
+        if (Objects.nonNull(previousResult.getId())) {
+            BiPredicate<ApplicationTrackingOutputResult, EformsDecisionHistory> hasResultChanged = (outputResult, previousRecord) ->
+            {
+                String iojResult = Objects.nonNull(outputResult.getIoj()) ? outputResult.getIoj().getIojResult() : Z;
+                String meansResult = Objects.nonNull(outputResult.getMeansAssessment()) ? outputResult.getMeansAssessment().getMeansAssessmentResult().value() : Z;
+                String passportResult = Objects.nonNull(outputResult.getPassport()) ? outputResult.getPassport().getPassportResult().value() : Z;
+
+                return iojResult.equals(Objects.requireNonNullElse(previousRecord.getIojResult(), Z))
+                        && meansResult.equals(Objects.requireNonNullElse(previousRecord.getMeansResult(), Z))
+                        && passportResult.equals(Objects.requireNonNullElse(previousRecord.getPassportResult(), Z))
+                        && Objects.requireNonNullElse(fundingDecision, Z).equals(Objects.requireNonNullElse(previousRecord.getFundingDecision(), Z));
+            };
             return !hasResultChanged.test(applicationTrackingOutputResult, previousResult);
         }
         return true;
