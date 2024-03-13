@@ -16,54 +16,55 @@ public class OutputResultUtil {
     public static final String WROTE_TO_RESULTS = "N";
 
     public String getFundingDecision(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
-        String fundDecision = null;
-        if (!applicationTrackingOutputResult.getAssessmentType().equals(ApplicationTrackingOutputResult.AssessmentType.PASSPORT) &&
+
+        ApplicationTrackingOutputResult.AssessmentType assessmentType = applicationTrackingOutputResult.getAssessmentType();
+
+        if (!assessmentType.equals(ApplicationTrackingOutputResult.AssessmentType.PASSPORT) &&
                 !applicationTrackingOutputResult.getPassport().getPassportResult().equals(Passport.PassportResult.FAIL_CONTINUE)) {
             ApplicationTrackingOutputResult.CaseType caseType = applicationTrackingOutputResult.getCaseType();
             switch (caseType) {
-                case INDICTABLE, CC_ALREADY, APPEAL_CC ->
-                        fundDecision = mapFundingDecision(applicationTrackingOutputResult);
-                case COMMITAL -> fundDecision = mapFundingDecisionForCommital(applicationTrackingOutputResult);
+                case INDICTABLE, CC_ALREADY, APPEAL_CC -> {
+                    return mapFundingDecision(applicationTrackingOutputResult);
+                }
+                case COMMITAL -> {
+                    return mapFundingDecisionForCommital(applicationTrackingOutputResult);
+                }
                 default -> {
-                    if (!applicationTrackingOutputResult.getAssessmentType().equals(ApplicationTrackingOutputResult.AssessmentType.MEANS_INIT)
+                    if (!assessmentType.equals(ApplicationTrackingOutputResult.AssessmentType.MEANS_INIT)
                             && !applicationTrackingOutputResult.getMeansAssessment().getMeansAssessmentResult().equals(MeansAssessment.MeansAssessmentResult.FAIL)
                             && !caseType.equals(ApplicationTrackingOutputResult.CaseType.EITHER_WAY)
                             && !applicationTrackingOutputResult.getMagsOutcome().equals(COMMITTED_FOR_TRIAL)) {
-
-                        fundDecision = applicationTrackingOutputResult.getRepDecision();
+                        return applicationTrackingOutputResult.getRepDecision();
                     }
                 }
             }
         }
-        return fundDecision;
+        return null;
     }
 
     private String mapFundingDecisionForCommital(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
-        String fundingDecision = null;
         String ccRepDecision = applicationTrackingOutputResult.getCcRepDecision();
         if (ccRepDecision.equals(GRANTED_PASSPORTED)
                 || ccRepDecision.equals(GRANTED_PASSED_MEANS_TEST)) {
-            fundingDecision = GRANTED;
+            return GRANTED;
         } else if (ccRepDecision.equals(FAILED_CF_S_FAILED_MEANS_TEST)) {
-            fundingDecision = ccRepDecision;
+            return ccRepDecision;
         }
-        return fundingDecision;
+        return null;
     }
 
     private String mapFundingDecision(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
-        String fundingDecision = null;
         ApplicationTrackingOutputResult.AssessmentType assessmentType = applicationTrackingOutputResult.getAssessmentType();
         MeansAssessment.MeansAssessmentResult meansAssessmentResult = applicationTrackingOutputResult.getMeansAssessment().getMeansAssessmentResult();
         if (!assessmentType.equals(ApplicationTrackingOutputResult.AssessmentType.MEANS_INIT)
                 && !meansAssessmentResult.equals(MeansAssessment.MeansAssessmentResult.FAIL)) {
             if (assessmentType.equals(ApplicationTrackingOutputResult.AssessmentType.MEANS_FULL)
                     && meansAssessmentResult.equals(MeansAssessment.MeansAssessmentResult.INEL)) {
-                fundingDecision = REFUSED_INELIGIBLE;
-            } else {
-                fundingDecision = applicationTrackingOutputResult.getCcRepDecision();
+                return REFUSED_INELIGIBLE;
             }
+            return applicationTrackingOutputResult.getCcRepDecision();
         }
-        return fundingDecision;
+        return null;
     }
 
     public EformsDecisionHistory buildEformDecisionHistory(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {

@@ -23,7 +23,7 @@ public class EformsDecisionHistoryService {
                 .observe(() -> log.info("Eform Decision History Record is Created Successfully"));
     }
 
-    public EformsDecisionHistory getPreviousDesionResult(Integer usn) {
+    public EformsDecisionHistory getPreviousDecisionResult(Integer usn) {
         log.info("Start - call to get previous Eforms Decision History Wrote to Result for {}", usn);
         EformsDecisionHistory eformsDecisionHistory = maatCourtDataApiClient.getPreviousEformsDecisionHistoryRecordWroteToResult(usn);
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
