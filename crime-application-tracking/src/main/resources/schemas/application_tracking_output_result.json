@@ -4,11 +4,11 @@
   "type": "object",
   "properties": {
     "usn": {
-      "type": "integer"
+      "type": "integer",
+      "description": "USN number"
     },
     "maatRef": {
       "type": "integer",
-      "nullable": false,
       "description": "MAAT / Rep Id"
     },
     "action": {
@@ -173,8 +173,7 @@
     },
     "requestSource": {
       "type": "string",
-      "nullable": true,
-      "enum": ["create_application", "passport_ioj", "assessments", "hardship", "crown_court", "capital_and_equity"],
+      "enum": ["create_application", "passport_ioj", "means_assessment", "hardship", "crown_court", "capital_and_equity"],
       "description": "Source of the Request"
     },
     "userCreated": {
@@ -184,6 +183,6 @@
     }
   },
   "required": [
-    "usn"
+    "usn", "maatRef", "requestSource"
   ]
 }
