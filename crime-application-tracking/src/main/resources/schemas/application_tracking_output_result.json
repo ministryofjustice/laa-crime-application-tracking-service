@@ -7,7 +7,7 @@
       "type": "integer",
       "description": "USN number"
     },
-    "maatRef": {
+    "maat_ref": {
       "type": "integer",
       "description": "MAAT / Rep Id"
     },
@@ -17,16 +17,16 @@
       "description": "Get or Save_Application or Save_Means_Full/Save_Means_Init or Save_Passport",
       "enum": ["Get", "Save_Application", "Save_Means_Full", "Save_Means_Init", "Save_Passport", null]
     },
-    "actionKeyId": {
+    "action_key_id": {
       "type": "integer",
       "nullable": true,
       "description": "Maat_ref or Finance assessment id or Passport assessment id"
     },
-    "caseId": {
+    "case_id": {
       "type": "string",
       "nullable": true
     },
-    "caseType": {
+    "case_type": {
       "type": "string",
       "nullable": true,
       "enum": ["INDICTABLE", "SUMMARY ONLY", "CC ALREADY", "APPEAL CC", "COMMITAL", "EITHER WAY"]
@@ -38,25 +38,25 @@
           "type": "integer",
           "nullable": true
         },
-        "iojResult": {
+        "ioj_result": {
           "type": "string",
           "nullable": true
         },
-        "iojReason": {
+        "ioj_reason": {
           "type": "string",
           "nullable": true,
           "description": "IOJ Notes"
         },
-        "iojAppealResult": {
+        "ioj_appeal_result": {
           "type": "string",
           "nullable": true,
           "enum": ["PASS", "FAIL"]
         },
-        "iojAssessorName": {
+        "ioj_assessor_name": {
           "type": "string",
           "nullable": true
         },
-        "appCreatedDate": {
+        "app_created_date": {
           "type": "string",
           "description": "Date of application created",
           "format": "date-time",
@@ -71,16 +71,16 @@
           "type": "integer",
           "nullable": true
         },
-        "passportResult": {
+        "passport_result": {
           "type": "string",
           "nullable": true,
           "enum": ["PASS", "FAIL", "FAIL CONTINUE", "TEMP"]
         },
-        "passportAssessorName": {
+        "passport_assessor_name": {
           "type": "string",
           "nullable": true
         },
-        "passportCreatedDate": {
+        "passport_created_date": {
           "type": "string",
           "description": "Date of passport created",
           "format": "date-time",
@@ -88,32 +88,32 @@
         }
       }
     },
-    "meansAssessment": {
+    "means_assessment": {
       "type": "object",
       "properties": {
-        "meansAssessmentId": {
+        "means_assessment_id": {
           "type": "integer",
           "nullable": true
         },
-        "meansAssessmentType": {
+        "means_assessment_type": {
           "type": "string",
           "nullable": true,
           "enum": ["MEANS_INIT", "MEANS_FULL"]
         },
-        "meansAssessmentStatus": {
+        "means_assessment_status": {
           "type": "string",
           "nullable": true
         },
-        "meansAssessmentResult": {
+        "means_assessment_result": {
           "type": "string",
           "nullable": true,
           "enum": ["FULL", "PASS", "FAIL", "HARDSHIP APPLICATION", "INEL"]
         },
-        "meansAssessorName": {
+        "means_assessor_name": {
           "type": "string",
           "nullable": true
         },
-        "meansAssessmentCreatedDate": {
+        "means_assessment_created_date": {
           "type": "string",
           "description": "Date of Means Assessment created",
           "format": "date-time",
@@ -124,65 +124,65 @@
     "hardship": {
       "type": "object",
       "properties": {
-        "hardshipId": {
+        "hardship_id": {
           "type": "integer",
           "nullable": true
         },
-        "hardshipResult": {
+        "hardship_result": {
           "type": "string",
           "nullable": true,
           "enum": ["PASS", "FAIL"]
         },
-        "hardshipType": {
+        "hardship_type": {
           "type": "string",
           "nullable": true,
           "enum": ["MCHARDSHIP", "CCHARDSHIP"]
         }
       }
     },
-    "assessmentId": {
+    "assessment_id": {
       "type": "integer",
       "nullable": true,
       "description": "IOJ Id or Finance assessment id or Passport assessment id or Hardship ID"
     },
-    "assessmentType": {
+    "assessment_type": {
       "type": "string",
       "nullable": true,
       "enum": ["MCHARDSHIP", "MEANS_INIT", "CCHARDSHIP", "IOJ", "MEANS_FULL", "PASSPORT"],
       "description": "IOJ type or Finance assessment type or Passport assessment type or Hardship type"
     },
-    "dwpResult": {
+    "dwp_result": {
       "type": "string",
       "nullable": true,
       "description": "DWP Result"
     },
-    "repDecision": {
+    "rep_decision": {
       "type": "string",
       "nullable": true,
       "description": "Rep Decision"
     },
-    "ccRepDecision": {
+    "cc_rep_decision": {
       "type": "string",
       "nullable": true,
       "description": "CC Rep Decision"
     },
-    "magsOutcome": {
+    "mags_outcome": {
       "type": "string",
       "nullable": true,
       "description": "Magistrate Outcome"
     },
-    "requestSource": {
+    "request_source": {
       "type": "string",
       "enum": ["create_application", "passport_ioj", "means_assessment", "hardship", "crown_court", "capital_and_equity"],
       "description": "Source of the Request"
     },
-    "userCreated": {
+    "user_created": {
       "type": "string",
       "nullable": true,
       "description": "User created"
     }
   },
   "required": [
-    "usn", "maatRef", "requestSource"
+    "usn", "maat_ref", "request_source"
   ]
 }
