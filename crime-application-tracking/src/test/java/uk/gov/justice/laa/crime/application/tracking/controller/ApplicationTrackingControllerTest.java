@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClientRequestExceptio
 import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult;
 import uk.gov.justice.laa.crime.application.tracking.service.ApplicationTrackingService;
 import uk.gov.justice.laa.crime.application.tracking.testutils.JsonUtils;
+import uk.gov.justice.laa.crime.application.tracking.testutils.TestData;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -31,10 +32,7 @@ public class ApplicationTrackingControllerTest {
 
     @Test
     void shouldSuccessfullyProcessApplicationTrackingAndOutputResultForValidaRequest() throws Exception {
-        var atsRequest = new ApplicationTrackingOutputResult()
-                .withUsn(123456)
-                .withMaatRef(654321)
-                .withRequestSource(ApplicationTrackingOutputResult.RequestSource.CAPITAL_AND_EQUITY);
+        var atsRequest = TestData.getAtsRequest();
         mockMvc.perform(MockMvcRequestBuilders.post(BASE_ENDPOINT_FORMAT).content(JsonUtils.objectToJson(atsRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

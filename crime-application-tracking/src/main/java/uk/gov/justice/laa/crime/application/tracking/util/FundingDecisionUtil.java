@@ -46,7 +46,6 @@ public class FundingDecisionUtil {
         applicationTrackingOutputResult.getIoj().setIojResult(PASS);
         String ccRepDecision = applicationTrackingOutputResult.getCcRepDecision();
         if (GRANTED_PASSPORTED.equals(ccRepDecision)
-
                 || GRANTED_PASSED_MEANS_TEST.equals(ccRepDecision)) {
             return GRANTED;
         } else if (FAILED_CF_S_FAILED_MEANS_TEST.equals(ccRepDecision)) {

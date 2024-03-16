@@ -183,6 +183,6 @@
     }
   },
   "required": [
-    "usn", "maat_ref", "request_source"
+    "usn", "maat_ref", "request_source", "ioj", "passport", "means_assessment", "hardship"
   ]
 }

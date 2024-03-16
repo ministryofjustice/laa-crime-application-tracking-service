@@ -29,6 +29,37 @@ public class BuildRequestsUtil {
                 .assessmentId(applicationTrackingOutputResult.getAssessmentId())
                 .assessmentType(applicationTrackingOutputResult.getAssessmentType().value())
                 .wroteToResults(WROTE_TO_RESULTS);
+
+        buildIoj(ioj, eformsDecisionHistoryBuilder);
+        buildMeansAssessment(meansAssessment, eformsDecisionHistoryBuilder);
+        buildPassport(passport, eformsDecisionHistoryBuilder);
+
+        if (Objects.nonNull(hardship)) {
+            eformsDecisionHistoryBuilder
+                    .hardshipResult(hardship.getHardshipResult().value());
+        }
+        return eformsDecisionHistoryBuilder.build();
+    }
+
+    private void buildPassport(Passport passport, EformsDecisionHistory.EformsDecisionHistoryBuilder eformsDecisionHistoryBuilder) {
+        if (Objects.nonNull(passport)) {
+            eformsDecisionHistoryBuilder
+                    .passportResult(passport.getPassportResult().value())
+                    .passportAssessorName(passport.getPassportAssessorName())
+                    .datePassportCreated(Objects.nonNull(passport.getPassportCreatedDate()) ? LocalDate.from(passport.getPassportCreatedDate()) : null);
+        }
+    }
+
+    private void buildMeansAssessment(MeansAssessment meansAssessment, EformsDecisionHistory.EformsDecisionHistoryBuilder eformsDecisionHistoryBuilder) {
+        if (Objects.nonNull(meansAssessment)) {
+            eformsDecisionHistoryBuilder
+                    .meansResult(meansAssessment.getMeansAssessmentResult().value())
+                    .meansAssessorName(meansAssessment.getMeansAssessorName())
+                    .dateMeansCreated(Objects.nonNull(meansAssessment.getMeansAssessmentCreatedDate()) ? LocalDate.from(meansAssessment.getMeansAssessmentCreatedDate()) : null);
+        }
+    }
+
+    private void buildIoj(Ioj ioj, EformsDecisionHistory.EformsDecisionHistoryBuilder eformsDecisionHistoryBuilder) {
         if (Objects.nonNull(ioj)) {
             eformsDecisionHistoryBuilder
                     .dateAppCreated(Objects.nonNull(ioj.getAppCreatedDate()) ? LocalDate.from(ioj.getAppCreatedDate()) : null)
@@ -37,24 +68,6 @@ public class BuildRequestsUtil {
                     .iojReason(ioj.getIojReason())
                     .iojAppealResult(ioj.getIojAppealResult().value());
         }
-        if (Objects.nonNull(meansAssessment)) {
-            eformsDecisionHistoryBuilder
-                    .meansResult(meansAssessment.getMeansAssessmentResult().value())
-                    .meansAssessorName(meansAssessment.getMeansAssessorName())
-                    .dateMeansCreated(Objects.nonNull(meansAssessment.getMeansAssessmentCreatedDate()) ? LocalDate.from(meansAssessment.getMeansAssessmentCreatedDate()): null);
-        }
-        if (Objects.nonNull(passport)) {
-            eformsDecisionHistoryBuilder
-                    .passportResult(passport.getPassportResult().value())
-                    .passportAssessorName(passport.getPassportAssessorName())
-                    .datePassportCreated(Objects.nonNull(passport.getPassportCreatedDate()) ? LocalDate.from(passport.getPassportCreatedDate()) : null);
-        }
-
-        if (Objects.nonNull(hardship)) {
-            eformsDecisionHistoryBuilder
-                    .hardshipResult(hardship.getHardshipResult().value());
-        }
-        return eformsDecisionHistoryBuilder.build();
     }
 
 
@@ -78,7 +91,7 @@ public class BuildRequestsUtil {
                 .dateMeansCreated(nonNullMeansAssessment ? meansAssessment.getMeansAssessmentCreatedDate() : null)
                 .fundingDecision(fundingDecision)
                 .iojReason(nonNullIoj ? ioj.getIojReason() : null)
-                .passportResult(nonNullPassport ? passport.getPassportResult().value() : null )
+                .passportResult(nonNullPassport ? passport.getPassportResult().value() : null)
                 .passportAssesorName(nonNullPassport ? passport.getPassportAssessorName() : null)
                 .datePassportCreated(nonNullPassport ? passport.getPassportCreatedDate() : null)
                 .dwpResult(applicationTrackingOutputResult.getDwpResult())
