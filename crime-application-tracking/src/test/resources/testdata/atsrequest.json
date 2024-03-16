@@ -1,10 +1,10 @@
 {
   "usn": 7264893,
   "maat_ref":73856111,
-  "action": null,
-  "action_key_id": null,
-  "case_id": null,
-  "case_type": null,
+  "action": "Save_Means_Full",
+  "action_key_id": 98569856,
+  "case_id": "8545875458",
+  "case_type": "EITHER WAY",
   "ioj": {
     "iojId": "85214785",
     "ioj_result": "PASS",
