@@ -20,6 +20,7 @@ def versions = [
 		pitest                  : "1.15.8",
 		sentryVersion			: "7.6.0",
 		validationapiVersion    : '2.0.1.Final',
+		commonsioVersion       : '2.11.0',
 		springdocVersion       : "2.3.0"
 ]
 configurations {
@@ -52,8 +53,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "org.springframework.security:spring-security-test"
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation "org.pitest:pitest:$versions.pitest"
+	testImplementation group: 'commons-io', name: 'commons-io', version: versions.commonsioVersion
 }
 
 tasks.named('test') {
@@ -75,7 +78,8 @@ jacocoTestReport {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
 					"**/model/**",
-					"**/config/**"
+					"**/config/**",
+					"**/exception/**"
 			])
 		}))
 	}

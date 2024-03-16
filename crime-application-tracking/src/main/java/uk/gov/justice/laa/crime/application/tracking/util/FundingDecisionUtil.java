@@ -13,6 +13,7 @@ public class FundingDecisionUtil {
     public static final String GRANTED = "Granted";
     public static final String FAILED_CF_S_FAILED_MEANS_TEST = "Failed - CfS Failed Means Test";
     public static final String REFUSED_INELIGIBLE = "Refused - Ineligible";
+    public static final String PASS = "PASS";
 
     public String getFundingDecision(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
 
@@ -42,8 +43,10 @@ public class FundingDecisionUtil {
     }
 
     private String mapFundingDecisionForCommittal(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
+        applicationTrackingOutputResult.getIoj().setIojResult(PASS);
         String ccRepDecision = applicationTrackingOutputResult.getCcRepDecision();
         if (GRANTED_PASSPORTED.equals(ccRepDecision)
+
                 || GRANTED_PASSED_MEANS_TEST.equals(ccRepDecision)) {
             return GRANTED;
         } else if (FAILED_CF_S_FAILED_MEANS_TEST.equals(ccRepDecision)) {

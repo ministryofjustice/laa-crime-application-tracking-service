@@ -1,0 +1,43 @@
+{
+  "usn": 7264893,
+  "maat_ref":73856111,
+  "action": null,
+  "action_key_id": null,
+  "case_id": null,
+  "case_type": null,
+  "ioj": {
+    "iojId": "85214785",
+    "ioj_result": "PASS",
+    "ioj_reason": "IOJ Reason",
+    "ioj_appeal_result": "PASS",
+    "ioj_assessor_name": "Test User",
+    "app_created_date":"2023-05-15T11:33:06.717"
+  },
+  "passport": {
+    "passportId": "98658658",
+    "passport_result": "PASS",
+    "passport_assessor_name": "Test User",
+    "passport_created_date": "2023-05-15T11:33:06.717"
+  },
+  "means_assessment": {
+    "means_assessment_id": 98569856,
+    "means_assessment_type": "MEANS_FULL",
+    "means_assessment_status": "COMPLETED",
+    "means_assessment_result": "PASS",
+    "means_assessor_name": "Test User",
+    "means_assessment_created_date": "2023-05-15T11:33:06.717"
+  },
+  "hardship": {
+    "hardship_id": 9865696,
+    "hardship_result": "PASS",
+    "hardship_type": "MCHARDSHIP"
+  },
+  "assessment_id": 85478545,
+  "assessment_type": "MEANS_FULL",
+  "dwp_result": "Undetermined",
+  "rep_decision": "Granted",
+  "cc_rep_decision": "Granted - Passed Means Test",
+  "mags_outcome": "COMMITTED",
+  "request_source":"means_assessment",
+  "user_created":"test-s"
+}
