@@ -75,27 +75,23 @@ public class BuildRequestsUtil {
         Ioj ioj = applicationTrackingOutputResult.getIoj();
         MeansAssessment meansAssessment = applicationTrackingOutputResult.getMeansAssessment();
         Passport passport = applicationTrackingOutputResult.getPassport();
-        boolean nonNullMeansAssessment = Objects.nonNull(meansAssessment);
-        boolean nonNullIoj = Objects.nonNull(ioj);
-        boolean nonNullPassport = Objects.nonNull(passport);
-
         return EformResults.builder()
                 .usn(applicationTrackingOutputResult.getUsn())
                 .maatRef(applicationTrackingOutputResult.getMaatRef())
                 .caseId(applicationTrackingOutputResult.getCaseId())
-                .dateCreated(nonNullIoj ? ioj.getAppCreatedDate() : null)
-                .iojResult(nonNullIoj ? ioj.getIojResult() : null)
-                .iojAssessorName(nonNullIoj ? ioj.getIojAssessorName() : null)
-                .meansResult(nonNullMeansAssessment ? meansAssessment.getMeansAssessmentResult().value() : null)
-                .meansAssessorName(nonNullMeansAssessment ? meansAssessment.getMeansAssessorName() : null)
-                .dateMeansCreated(nonNullMeansAssessment ? meansAssessment.getMeansAssessmentCreatedDate() : null)
+                .dateCreated(ioj.getAppCreatedDate())
+                .iojResult(ioj.getIojResult())
+                .iojAssessorName(ioj.getIojAssessorName())
+                .meansResult(Objects.nonNull(meansAssessment.getMeansAssessmentResult()) ? meansAssessment.getMeansAssessmentResult().value() : null)
+                .meansAssessorName(meansAssessment.getMeansAssessorName())
+                .dateMeansCreated( meansAssessment.getMeansAssessmentCreatedDate())
                 .fundingDecision(fundingDecision)
-                .iojReason(nonNullIoj ? ioj.getIojReason() : null)
-                .passportResult(nonNullPassport ? passport.getPassportResult().value() : null)
-                .passportAssesorName(nonNullPassport ? passport.getPassportAssessorName() : null)
-                .datePassportCreated(nonNullPassport ? passport.getPassportCreatedDate() : null)
+                .iojReason(ioj.getIojReason())
+                .passportResult(Objects.nonNull(passport.getPassportResult()) ? passport.getPassportResult().value() : null)
+                .passportAssesorName(passport.getPassportAssessorName())
+                .datePassportCreated(passport.getPassportCreatedDate())
                 .dwpResult(applicationTrackingOutputResult.getDwpResult())
-                .iojAppealResult(nonNullIoj ? ioj.getIojAppealResult().value() : null)
+                .iojAppealResult(Objects.nonNull(ioj.getIojAppealResult()) ? ioj.getIojAppealResult().value() : null)
                 .caseType(applicationTrackingOutputResult.getCaseType().value())
                 .stage(null).build();
     }
