@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult;
 import uk.gov.justice.laa.crime.application.tracking.testutils.TestData;
 
-public class FundingDecisionUtilTest {
+class FundingDecisionUtilTest {
 
     @Test
     void shouldReturnFundingDecisionForIndictableCaseType(){

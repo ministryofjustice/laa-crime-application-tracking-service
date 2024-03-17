@@ -12,7 +12,7 @@ import uk.gov.justice.laa.crime.application.tracking.model.EformsDecisionHistory
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class EformsDecisionHistoryServiceTest {
+class EformsDecisionHistoryServiceTest {
 
     @Mock
     private MaatCourtDataApiClient maatCourtDataApiClient;

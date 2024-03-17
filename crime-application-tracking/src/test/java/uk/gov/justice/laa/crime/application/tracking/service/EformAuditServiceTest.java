@@ -13,7 +13,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class EformAuditServiceTest {
+class EformAuditServiceTest {
     @Mock
     private MaatCourtDataApiClient maatCourtDataApiClient;
 

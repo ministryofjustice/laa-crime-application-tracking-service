@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = ApplicationTrackingController.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class ApplicationTrackingControllerTest {
+class ApplicationTrackingControllerTest {
 
     private static final String BASE_ENDPOINT_FORMAT = "/api/internal/v1/application-tracking-output-result";
 
