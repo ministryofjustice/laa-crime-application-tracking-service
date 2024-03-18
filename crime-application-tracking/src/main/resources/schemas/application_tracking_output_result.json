@@ -182,7 +182,5 @@
       "description": "User created"
     }
   },
-  "required": [
-    "usn", "maat_ref", "request_source", "ioj", "passport", "means_assessment", "hardship"
-  ]
+  "required": ["usn", "maat_ref", "request_source", "ioj", "passport", "means_assessment", "hardship"]
 }
