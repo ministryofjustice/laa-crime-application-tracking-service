@@ -14,9 +14,6 @@ public interface MaatCourtDataApiClient {
     @PostExchange("/eform/audit")
     void createEformsAuditRecord(@RequestBody EformsAudit eformsAudit);
 
-    @GetExchange("/eform/audit/{usn}")
-    EformsAudit getEformsAuditRecord(@PathVariable Integer usn);
-
     @PatchExchange("/eform/{usn}")
     void updateEformStagingRecord(@PathVariable Integer usn,
                                   @RequestBody EformsStaging eformsStaging);
@@ -37,7 +34,7 @@ public interface MaatCourtDataApiClient {
     void createEformResult(@RequestBody EformResults eformResults);
 
     @GetExchange("/internal/v1/assessment/financial-assessments/check-outstanding/{repId}")
-    OutstandingAssessment findOutstandingAssessments(@PathVariable Integer maatRef);
+    OutstandingAssessment findOutstandingAssessments(@PathVariable Integer repId);
 
     @GetExchange("/internal/v1/assessment/rep-orders/{repId}/ioj-assessor-details")
     AssessorDetails findIOJAssessorDetails(@PathVariable int repId);

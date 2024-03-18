@@ -14,8 +14,8 @@ import uk.gov.justice.laa.crime.application.tracking.model.EformsAudit;
 @Slf4j
 public class EformAuditService {
     private static final String SERVICE_NAME = "eformAuditService";
-    private final MaatCourtDataApiClient maatCourtDataApiClient;
     private static final String STATUS_CODE = "Processing";
+    private final MaatCourtDataApiClient maatCourtDataApiClient;
     private final ObservationRegistry observationRegistry;
 
     public void createAudit(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
