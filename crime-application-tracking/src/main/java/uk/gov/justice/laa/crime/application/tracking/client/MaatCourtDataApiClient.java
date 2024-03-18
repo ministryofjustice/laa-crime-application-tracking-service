@@ -36,15 +36,15 @@ public interface MaatCourtDataApiClient {
     @PostExchange("/eform/results")
     void createEformResult(@RequestBody EformResults eformResults);
 
-    @GetExchange
+    @GetExchange("/internal/v1/assessment/financial-assessments/check-outstanding/{repId}")
     OutstandingAssessment checkForOutstandingAssessments(@PathVariable Integer maatRef);
 
-    @GetExchange("/internal/v1/assessment/{repId}/ioj-assessor-details")
+    @GetExchange("/internal/v1/assessment/rep-orders/{repId}/ioj-assessor-details")
     AssessorDetails findIOJAssessorDetails(@PathVariable int repId);
 
-    @GetExchange("/internal/v1/assessment/{financialAssessmentId}/means-assessor-details")
+    @GetExchange("/internal/v1/assessment/financial-assessments/{financialAssessmentId}/means-assessor-details")
     AssessorDetails findMeansAssessorDetails(@PathVariable int financialAssessmentId);
 
-    @GetExchange("/internal/v1/assessment/{passportAssessmentId}/passport-assessor-details")
+    @GetExchange("/internal/v1/assessment/passport-assessments/{passportAssessmentId}/passport-assessor-details")
     AssessorDetails findPassportAssessorDetails(@PathVariable int passportAssessmentId);
 }

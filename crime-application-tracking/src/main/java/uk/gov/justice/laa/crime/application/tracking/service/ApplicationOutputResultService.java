@@ -87,7 +87,7 @@ public class ApplicationOutputResultService {
 
     private boolean checkResultChanged(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         EformsDecisionHistory previousResult = eformsDecisionHistoryService.getPreviousDecisionResult(applicationTrackingOutputResult.getUsn());
-        if (Objects.nonNull(previousResult.getId())) {
+        if (Objects.nonNull(previousResult) && Objects.nonNull(previousResult.getId())) {
             BiPredicate<ApplicationTrackingOutputResult, EformsDecisionHistory> hasResultChanged = (outputResult, previousRecord) ->
             {
                 String iojResult = Objects.nonNull(outputResult.getIoj()) ? outputResult.getIoj().getIojResult() : Z;
