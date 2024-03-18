@@ -15,7 +15,7 @@ import java.util.function.BiPredicate;
 @Slf4j
 public class ApplicationOutputResultService {
 
-    public static final String Z = "Z";
+    private static final String DEFAULT_VALUE = "Z";
     private final AssessmentAssessorService assessmentAssessorService;
     private final EformsDecisionHistoryService eformsDecisionHistoryService;
     private final EformResultsService eformResultsService;
@@ -42,27 +42,32 @@ public class ApplicationOutputResultService {
     }
 
     private void mapIojAssessorName(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
-        if (Objects.nonNull(applicationTrackingOutputResult.getMaatRef())
+        Integer maatRef = applicationTrackingOutputResult.getMaatRef();
+        if (Objects.nonNull(maatRef)
                 && Objects.isNull(applicationTrackingOutputResult.getIoj().getIojAssessorName())) {
-            AssessorDetails iojAssessor = assessmentAssessorService.getIOJAssessor(applicationTrackingOutputResult.getMaatRef());
+            AssessorDetails iojAssessor = assessmentAssessorService.getIOJAssessor(maatRef);
             applicationTrackingOutputResult.getIoj().setIojAssessorName(iojAssessor.getFullName());
         }
     }
 
+
     private void mapMeansAssessorName(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         MeansAssessment meansAssessment = applicationTrackingOutputResult.getMeansAssessment();
-        if (Objects.nonNull(meansAssessment.getMeansAssessmentId())
+        Integer meansAssessmentId = meansAssessment.getMeansAssessmentId();
+        if (Objects.nonNull(meansAssessmentId)
                 && Objects.isNull(meansAssessment.getMeansAssessorName())) {
-            AssessorDetails meansAssessor = assessmentAssessorService.getMeansAssessor(meansAssessment.getMeansAssessmentId());
+            AssessorDetails meansAssessor = assessmentAssessorService.getMeansAssessor(meansAssessmentId);
             meansAssessment.setMeansAssessorName(meansAssessor.getFullName());
         }
     }
 
+
     private void mapPassportedAssessorName(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         Passport passport = applicationTrackingOutputResult.getPassport();
-        if (Objects.nonNull(passport.getPassportId())
+        Integer passportId = passport.getPassportId();
+        if (Objects.nonNull(passportId)
                 && Objects.isNull(passport.getPassportAssessorName())) {
-            AssessorDetails passportAssessor = assessmentAssessorService.getPassportAssessor(passport.getPassportId());
+            AssessorDetails passportAssessor = assessmentAssessorService.getPassportAssessor(passportId);
             passport.setPassportAssessorName(passportAssessor.getFullName());
         }
     }
@@ -77,7 +82,7 @@ public class ApplicationOutputResultService {
 
     private void createEformResultRecord(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         if (Objects.nonNull(fundingDecision)
-                && checkResultChanged(applicationTrackingOutputResult, fundingDecision)) {
+                && isOutputResultChanged(applicationTrackingOutputResult, fundingDecision)) {
             eformResultsService.createEformResult(applicationTrackingOutputResult, fundingDecision);
             Integer usn = applicationTrackingOutputResult.getUsn();
             eformsDecisionHistoryService.updateWroteResult(usn);
@@ -85,19 +90,19 @@ public class ApplicationOutputResultService {
         }
     }
 
-    private boolean checkResultChanged(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
+    private boolean isOutputResultChanged(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         EformsDecisionHistory previousResult = eformsDecisionHistoryService.getPreviousDecisionResult(applicationTrackingOutputResult.getUsn());
         if (Objects.nonNull(previousResult) && Objects.nonNull(previousResult.getId())) {
             BiPredicate<ApplicationTrackingOutputResult, EformsDecisionHistory> hasResultChanged = (outputResult, previousRecord) ->
             {
-                String iojResult = Objects.nonNull(outputResult.getIoj()) ? outputResult.getIoj().getIojResult() : Z;
-                String meansResult = Objects.nonNull(outputResult.getMeansAssessment()) ? outputResult.getMeansAssessment().getMeansAssessmentResult().value() : Z;
-                String passportResult = Objects.nonNull(outputResult.getPassport()) ? outputResult.getPassport().getPassportResult().value() : Z;
+                String iojResult = Objects.nonNull(outputResult.getIoj()) ? outputResult.getIoj().getIojResult() : DEFAULT_VALUE;
+                String meansResult = Objects.nonNull(outputResult.getMeansAssessment()) ? outputResult.getMeansAssessment().getMeansAssessmentResult().value() : DEFAULT_VALUE;
+                String passportResult = Objects.nonNull(outputResult.getPassport()) ? outputResult.getPassport().getPassportResult().value() : DEFAULT_VALUE;
 
-                return iojResult.equals(Objects.requireNonNullElse(previousRecord.getIojResult(), Z))
-                        && meansResult.equals(Objects.requireNonNullElse(previousRecord.getMeansResult(), Z))
-                        && passportResult.equals(Objects.requireNonNullElse(previousRecord.getPassportResult(), Z))
-                        && Objects.requireNonNullElse(fundingDecision, Z).equals(Objects.requireNonNullElse(previousRecord.getFundingDecision(), Z));
+                return iojResult.equals(Objects.requireNonNullElse(previousRecord.getIojResult(), DEFAULT_VALUE))
+                        && meansResult.equals(Objects.requireNonNullElse(previousRecord.getMeansResult(), DEFAULT_VALUE))
+                        && passportResult.equals(Objects.requireNonNullElse(previousRecord.getPassportResult(), DEFAULT_VALUE))
+                        && Objects.requireNonNullElse(fundingDecision, DEFAULT_VALUE).equals(Objects.requireNonNullElse(previousRecord.getFundingDecision(), DEFAULT_VALUE));
             };
             return !hasResultChanged.test(applicationTrackingOutputResult, previousResult);
         }

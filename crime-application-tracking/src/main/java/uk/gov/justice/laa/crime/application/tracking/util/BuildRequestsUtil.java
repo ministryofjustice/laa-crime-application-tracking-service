@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @UtilityClass
 public class BuildRequestsUtil {
-    public static final String WROTE_TO_RESULTS = "N";
+    private static final String WROTE_TO_RESULTS = "N";
 
     public EformsDecisionHistory buildEformDecisionHistory(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         Ioj ioj = applicationTrackingOutputResult.getIoj();

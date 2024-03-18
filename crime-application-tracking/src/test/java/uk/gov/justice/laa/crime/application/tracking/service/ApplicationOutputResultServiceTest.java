@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ApplicationOutputResultServiceTest {
-    public static final String FUNDING_DECISION = "Granted - Passed Means Test";
+    private static final String FUNDING_DECISION = "Granted - Passed Means Test";
     @Mock
     private AssessmentAssessorService assessmentAssessorService;
     @Mock

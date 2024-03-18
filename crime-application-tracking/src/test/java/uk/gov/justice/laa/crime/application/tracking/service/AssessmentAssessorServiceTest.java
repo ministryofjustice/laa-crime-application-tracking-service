@@ -27,9 +27,9 @@ class AssessmentAssessorServiceTest {
     void shouldCheckOutstandingAssessmentforGivenMaatID() {
         Integer maat_id = 123456;
         OutstandingAssessment outstandingAssessment = OutstandingAssessment.builder().build();
-        when(maatCourtDataApiClient.checkForOutstandingAssessments(maat_id)).thenReturn(outstandingAssessment);
+        when(maatCourtDataApiClient.findOutstandingAssessments(maat_id)).thenReturn(outstandingAssessment);
         OutstandingAssessment response = assessmentAssessorService.checkOutstandingAssessment(maat_id);
-        verify(maatCourtDataApiClient, Mockito.times(1)).checkForOutstandingAssessments(maat_id);
+        verify(maatCourtDataApiClient, Mockito.times(1)).findOutstandingAssessments(maat_id);
         Assertions.assertFalse(response.isOutstandingAssessments());
     }
 

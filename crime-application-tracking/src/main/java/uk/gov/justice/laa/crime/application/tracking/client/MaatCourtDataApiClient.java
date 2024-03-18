@@ -37,7 +37,7 @@ public interface MaatCourtDataApiClient {
     void createEformResult(@RequestBody EformResults eformResults);
 
     @GetExchange("/internal/v1/assessment/financial-assessments/check-outstanding/{repId}")
-    OutstandingAssessment checkForOutstandingAssessments(@PathVariable Integer maatRef);
+    OutstandingAssessment findOutstandingAssessments(@PathVariable Integer maatRef);
 
     @GetExchange("/internal/v1/assessment/rep-orders/{repId}/ioj-assessor-details")
     AssessorDetails findIOJAssessorDetails(@PathVariable int repId);

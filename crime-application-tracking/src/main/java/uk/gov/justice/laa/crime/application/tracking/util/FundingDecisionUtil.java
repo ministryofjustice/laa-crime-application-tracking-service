@@ -7,13 +7,13 @@ import uk.gov.justice.laa.crime.application.tracking.model.Passport;
 
 @UtilityClass
 public class FundingDecisionUtil {
-    public static final String COMMITTED_FOR_TRIAL = "COMMITTED FOR TRIAL";
-    public static final String GRANTED_PASSPORTED = "Granted - Passported";
-    public static final String GRANTED_PASSED_MEANS_TEST = "Granted - Passed Means Test";
-    public static final String GRANTED = "Granted";
-    public static final String FAILED_CF_S_FAILED_MEANS_TEST = "Failed - CfS Failed Means Test";
-    public static final String REFUSED_INELIGIBLE = "Refused - Ineligible";
-    public static final String PASS = "PASS";
+    private static final String COMMITTED_FOR_TRIAL = "COMMITTED FOR TRIAL";
+    private static final String GRANTED_PASSPORTED = "Granted - Passported";
+    private static final String GRANTED_PASSED_MEANS_TEST = "Granted - Passed Means Test";
+    private static final String GRANTED = "Granted";
+    private static final String FAILED_CF_S_FAILED_MEANS_TEST = "Failed - CfS Failed Means Test";
+    private static final String REFUSED_INELIGIBLE = "Refused - Ineligible";
+    private static final String PASS = "PASS";
 
     public String getFundingDecision(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
 

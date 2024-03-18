@@ -13,7 +13,7 @@ import uk.gov.justice.laa.crime.application.tracking.model.EformsDecisionHistory
 @Slf4j
 public class EformsDecisionHistoryService {
     private static final String SERVICE_NAME = "eformsDecisionHistoryService";
-    public static final String WROTE_TO_RESULTS = "Y";
+    private static final String WROTE_TO_RESULTS = "Y";
     private final MaatCourtDataApiClient maatCourtDataApiClient;
     private final ObservationRegistry observationRegistry;
     public void createEformsDecisionHistoryRecord(EformsDecisionHistory eformsDecisionHistory) {

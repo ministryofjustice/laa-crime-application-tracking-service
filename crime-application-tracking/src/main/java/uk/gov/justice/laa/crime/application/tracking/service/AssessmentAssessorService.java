@@ -19,7 +19,7 @@ public class AssessmentAssessorService {
 
     public OutstandingAssessment checkOutstandingAssessment(Integer maatRef) {
         log.info("Start - call to check outstanding assessments for  {}", maatRef);
-        OutstandingAssessment outstandingAssessment = maatCourtDataApiClient.checkForOutstandingAssessments(maatRef);
+        OutstandingAssessment outstandingAssessment = maatCourtDataApiClient.findOutstandingAssessments(maatRef);
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> outstandingAssessment);
     }
