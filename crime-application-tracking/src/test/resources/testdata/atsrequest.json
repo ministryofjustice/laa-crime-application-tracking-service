@@ -1,6 +1,6 @@
 {
   "usn": 7264893,
-  "maat_ref":73856111,
+  "maat_ref": 73856111,
   "action": "Save_Means_Full",
   "action_key_id": 98569856,
   "case_id": "8545875458",
@@ -11,7 +11,7 @@
     "ioj_reason": "IOJ Reason",
     "ioj_appeal_result": "PASS",
     "ioj_assessor_name": "Test User",
-    "app_created_date":"2023-05-15T11:33:06.717"
+    "app_created_date": "2023-05-15T11:33:06.717"
   },
   "passport": {
     "passportId": "98658658",
@@ -38,6 +38,6 @@
   "rep_decision": "Granted",
   "cc_rep_decision": "Granted - Passed Means Test",
   "mags_outcome": "COMMITTED",
-  "request_source":"means_assessment",
-  "user_created":"test-s"
+  "request_source": "means_assessment",
+  "user_created": "test-s"
 }
