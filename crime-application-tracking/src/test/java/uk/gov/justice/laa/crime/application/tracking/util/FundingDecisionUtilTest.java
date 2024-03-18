@@ -1,34 +1,33 @@
 package uk.gov.justice.laa.crime.application.tracking.util;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult;
 import uk.gov.justice.laa.crime.application.tracking.testutils.TestData;
 
+import java.util.stream.Stream;
+
 class FundingDecisionUtilTest {
 
-    @Test
-    void shouldReturnFundingDecisionForIndictableCaseType(){
-        var atsRequest = TestData.getAtsRequest();
-        String expectedFundDecision = "Granted - Passed Means Test";
-        String fundingDecision = FundingDecisionUtil.getFundingDecision(atsRequest);
-        Assertions.assertEquals(expectedFundDecision, fundingDecision);
-    }
-    @Test
-    void shouldReturnFundingDecisionForCommitalCaseType(){
-        var atsRequest = TestData.getAtsRequest();
-        atsRequest.setCaseType(ApplicationTrackingOutputResult.CaseType.COMMITAL);
-        String expectedFundDecision = "Granted";
-        String fundingDecision = FundingDecisionUtil.getFundingDecision(atsRequest);
-        Assertions.assertEquals(expectedFundDecision, fundingDecision);
-    }
+    private static final String GRANTED_PASSED_MEANS_TEST = "Granted - Passed Means Test";
+    private static final String GRANTED = "Granted";
 
-    @Test
-    void shouldReturnFundingDecisionForSummaryOnlyCaseType(){
+    @ParameterizedTest
+    @MethodSource("testDataForFundingDecision")
+    void shouldReturnFundingDecisionForIndictableCaseType(ApplicationTrackingOutputResult.CaseType caseType, String expectedFundDecision){
         var atsRequest = TestData.getAtsRequest();
-        atsRequest.setCaseType(ApplicationTrackingOutputResult.CaseType.SUMMARY_ONLY);
-        String expectedFundDecision = "Granted";
-        String fundingDecision = FundingDecisionUtil.getFundingDecision(atsRequest);
-        Assertions.assertEquals(expectedFundDecision, fundingDecision);
+        atsRequest.setCaseType(caseType);
+        String actualFundingDecision = FundingDecisionUtil.getFundingDecision(atsRequest);
+        Assertions.assertEquals(expectedFundDecision, actualFundingDecision);
+
+    }
+    private static Stream<Arguments> testDataForFundingDecision() {
+        return Stream.of(
+                Arguments.of(ApplicationTrackingOutputResult.CaseType.INDICTABLE, GRANTED_PASSED_MEANS_TEST),
+                Arguments.of(ApplicationTrackingOutputResult.CaseType.COMMITAL, GRANTED),
+                Arguments.of(ApplicationTrackingOutputResult.CaseType.SUMMARY_ONLY, GRANTED)
+        );
     }
 }
