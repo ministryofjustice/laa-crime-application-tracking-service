@@ -93,7 +93,7 @@ public class ApplicationOutputResultService {
     private boolean isOutputResultChanged(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         EformsDecisionHistory previousResult = eformsDecisionHistoryService.getPreviousDecisionResult(applicationTrackingOutputResult.getUsn());
         if (Objects.nonNull(previousResult) && Objects.nonNull(previousResult.getId())) {
-            BiPredicate<ApplicationTrackingOutputResult, EformsDecisionHistory> hasResultChanged = (outputResult, previousRecord) ->
+            BiPredicate<ApplicationTrackingOutputResult, EformsDecisionHistory> isResultUnchanged = (outputResult, previousRecord) ->
             {
                 String iojResult = Objects.nonNull(outputResult.getIoj()) ? outputResult.getIoj().getIojResult() : DEFAULT_VALUE;
                 String meansResult = Objects.nonNull(outputResult.getMeansAssessment()) ? outputResult.getMeansAssessment().getMeansAssessmentResult().value() : DEFAULT_VALUE;
@@ -104,7 +104,7 @@ public class ApplicationOutputResultService {
                         && passportResult.equals(Objects.requireNonNullElse(previousRecord.getPassportResult(), DEFAULT_VALUE))
                         && Objects.requireNonNullElse(fundingDecision, DEFAULT_VALUE).equals(Objects.requireNonNullElse(previousRecord.getFundingDecision(), DEFAULT_VALUE));
             };
-            return !hasResultChanged.test(applicationTrackingOutputResult, previousResult);
+            return !isResultUnchanged.test(applicationTrackingOutputResult, previousResult);
         }
         return true;
     }
