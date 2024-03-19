@@ -251,7 +251,6 @@ workflows:
           type: approval
           requires:
             - build_scan_and_push_image
-            - deploy-dev
 
       - deploy-uat:
           requires:
