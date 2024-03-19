@@ -1,4 +1,4 @@
-package config;
+package uk.gov.justice.laa.crime.application.tracking.config;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
