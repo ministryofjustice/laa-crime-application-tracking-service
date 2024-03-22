@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.application.tracking.service;
 
+import io.github.resilience4j.retry.annotation.Retry;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ public class EformsHistoryService {
     private static final String SERVICE_NAME = "eformsHistoryService";
     private final MaatCourtDataApiClient maatCourtDataApiClient;
     private final ObservationRegistry observationRegistry;
+
+    @Retry(name = SERVICE_NAME)
     public void createEformHistory(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         Integer usn = applicationTrackingOutputResult.getUsn();
         log.info("Start - call to Create Eforms History API {}", usn);
