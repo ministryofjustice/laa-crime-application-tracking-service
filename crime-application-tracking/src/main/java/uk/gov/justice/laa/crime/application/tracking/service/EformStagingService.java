@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.application.tracking.service;
 
+import io.github.resilience4j.retry.annotation.Retry;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ public class EformStagingService {
     private final MaatCourtDataApiClient maatCourtDataApiClient;
     private final ObservationRegistry observationRegistry;
     private static final String PURGE ="PURGE";
+
+    @Retry(name = SERVICE_NAME)
     public void updateMaatId(Integer usn, Integer maatRef) {
         log.info("Start - call to update MAAT Id for {}", usn);
         EformsStaging eformsStaging = EformsStaging.builder().maatRef(maatRef).build();
@@ -25,6 +28,7 @@ public class EformStagingService {
                 .observe(() -> log.info("MAAT Id is updated Successfully"));
     }
 
+    @Retry(name = SERVICE_NAME)
     public void updateStatus(Integer usn) {
         log.info("Start - call to update MAAT Status for {}", usn);
         EformsStaging eformsStaging = EformsStaging.builder().maatStatus(PURGE).build();

@@ -21,7 +21,9 @@ def versions = [
 		sentryVersion			: "7.6.0",
 		validationapiVersion    : '2.0.1.Final',
 		commonsioVersion       : '2.11.0',
-		springdocVersion       : "2.3.0"
+		springdocVersion       : "2.4.0",
+		commonsLang3Version    : "3.14.0",
+		resilience4jVersion    : "2.2.0"
 ]
 configurations {
 	compileOnly {
@@ -45,8 +47,11 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
 	implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
 
-	implementation "javax.validation:validation-api:$versions.validationapiVersion"
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$versions.springdocVersion"
+	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3Version"
+	implementation "io.github.resilience4j:resilience4j-spring-boot3:$versions.resilience4jVersion"
+
+	implementation "javax.validation:validation-api:$versions.validationapiVersion"
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'

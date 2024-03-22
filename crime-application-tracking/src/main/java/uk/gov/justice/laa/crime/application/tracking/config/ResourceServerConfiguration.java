@@ -38,6 +38,8 @@ public class ResourceServerConfiguration {
                 .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/open-api/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/api-docs/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/api/**").hasAuthority(SCOPE_ATS_STANDARD)
                         .anyRequest().authenticated())

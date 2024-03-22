@@ -12,6 +12,38 @@ management:
     health:
       show-details: always
 
+springdoc:
+  api-docs:
+    path: /api-docs
+
+resilience4j:
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 2s
+        retry-exceptions:
+          - org.springframework.web.reactive.function.client.WebClientRequestException
+          - org.springframework.web.reactive.function.client.WebClientResponseException.BadGateway
+          - org.springframework.web.reactive.function.client.WebClientResponseException.ServiceUnavailable
+          - org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError
+          - org.springframework.web.reactive.function.client.WebClientResponseException.NotImplemented
+          - org.springframework.web.reactive.function.client.WebClientResponseException.GatewayTimeout
+
+    instances:
+      assessmentAssessorService:
+        base-config: default
+      eformAuditService:
+        base-config: default
+      eformResultsService:
+        base-config: default
+      eformsDecisionHistoryService:
+        base-config: default
+      eformsHistoryService:
+        base-config: default
+      eformStagingService:
+        base-config: default
+
 spring:
   security:
     oauth2:

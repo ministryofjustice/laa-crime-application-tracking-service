@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.application.tracking.service;
 
+import io.github.resilience4j.retry.annotation.Retry;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class AssessmentAssessorService {
     private final MaatCourtDataApiClient maatCourtDataApiClient;
     private final ObservationRegistry observationRegistry;
 
+    @Retry(name = SERVICE_NAME)
     public OutstandingAssessment checkOutstandingAssessment(Integer maatRef) {
         log.info("Start - call to check outstanding assessments for  {}", maatRef);
         OutstandingAssessment outstandingAssessment = maatCourtDataApiClient.findOutstandingAssessments(maatRef);
@@ -24,6 +26,7 @@ public class AssessmentAssessorService {
                 .observe(() -> outstandingAssessment);
     }
 
+    @Retry(name = SERVICE_NAME)
     public AssessorDetails getIOJAssessor(Integer maatRef) {
         log.info("Start - call to get IOJ Assessor Name for  {}", maatRef);
         AssessorDetails iojAssessor = maatCourtDataApiClient.findIOJAssessorDetails(maatRef);
@@ -31,6 +34,7 @@ public class AssessmentAssessorService {
                 .observe(() -> iojAssessor);
     }
 
+    @Retry(name = SERVICE_NAME)
     public AssessorDetails getMeansAssessor(Integer meansAssessmentId) {
         log.info("Start - call to get Means Assessor Name for  {}", meansAssessmentId);
         AssessorDetails meansAssessor = maatCourtDataApiClient.findMeansAssessorDetails(meansAssessmentId);
@@ -38,6 +42,7 @@ public class AssessmentAssessorService {
                 .observe(() -> meansAssessor);
     }
 
+    @Retry(name = SERVICE_NAME)
     public AssessorDetails getPassportAssessor(Integer passportId) {
         log.info("Start - call to get Passported Assessor Name for  {}", passportId);
         AssessorDetails passportAssessor = maatCourtDataApiClient.findPassportAssessorDetails(passportId);
