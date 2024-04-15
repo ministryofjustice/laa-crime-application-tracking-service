@@ -18,7 +18,7 @@ java {
 
 def versions = [
 		pitest                  : "1.16.0",
-		sentryVersion			: "7.7.0",
+		sentryVersion			: "7.8.0",
 		validationapiVersion    : '2.0.1.Final',
 		commonsioVersion       : '2.11.0',
 		springdocVersion       : "2.5.0",
