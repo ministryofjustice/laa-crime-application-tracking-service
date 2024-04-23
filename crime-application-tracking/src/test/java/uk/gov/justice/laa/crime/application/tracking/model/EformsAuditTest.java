@@ -19,7 +19,7 @@ class EformsAuditTest {
         testForm.setDateCreated(now);
         testForm.setStatusCode("Active");
 
-        assertAll("Verify formsAudit properties",
+        assertAll("Verify EformsAudit properties",
                 () -> assertEquals(1, testForm.getId()),
                 () -> assertEquals(12345, testForm.getUsn()),
                 () -> assertEquals(67890, testForm.getMaatRef()),
