@@ -55,7 +55,7 @@ class MeansAssessmentTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // Create an instance of Assessment with specific values
         MeansAssessment.MeansAssessmentType meansAssessmentType = null;
         MeansAssessment.MeansAssessmentResult meansAssessmentResult = null;
