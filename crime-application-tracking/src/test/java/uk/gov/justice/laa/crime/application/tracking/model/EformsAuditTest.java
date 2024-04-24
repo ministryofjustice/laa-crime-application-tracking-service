@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EformsAuditTest {
     @Test
-    public void testVariables(){
+    void testVariables(){
         EformsAudit testForm;
         testForm = new EformsAudit();
         testForm.setId(1);
