@@ -63,7 +63,6 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
                 mvc.perform(request)
                         .andExpect(status().isOk())
                         .andReturn();
@@ -80,8 +79,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().is4xxClientError())
                         .andReturn();
 
@@ -97,8 +95,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().isOk())
                         .andReturn();
 
@@ -114,8 +111,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().is4xxClientError())
                         .andReturn();
 
@@ -131,8 +127,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().isOk())
                         .andReturn();
 
@@ -148,8 +143,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().is4xxClientError())
                         .andReturn();
 
@@ -165,8 +159,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().isOk())
                         .andReturn();
 
@@ -182,8 +175,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().is4xxClientError())
                         .andReturn();
 
@@ -199,8 +191,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().isOk())
                         .andReturn();
 
@@ -216,8 +207,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().is4xxClientError())
                         .andReturn();
 
@@ -233,8 +223,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().isOk())
                         .andReturn();
 
@@ -250,8 +239,7 @@ class ApplicationTrackingServiceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result =
-                mvc.perform(request)
+        mvc.perform(request)
                         .andExpect(status().is4xxClientError())
                         .andReturn();
     }
