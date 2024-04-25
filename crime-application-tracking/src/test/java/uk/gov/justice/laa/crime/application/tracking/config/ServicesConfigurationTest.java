@@ -10,10 +10,12 @@ import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class ServicesConfigurationTest {
+    @Autowired
+    ServicesConfiguration myClass;
     @Test
     void testVariables() {
-        ServicesConfiguration myClass = new ServicesConfiguration();
         String expectedUrl = "http://test.com";
         String expectedRegID = "201920";
         // Call a public method that interacts with the private variable
