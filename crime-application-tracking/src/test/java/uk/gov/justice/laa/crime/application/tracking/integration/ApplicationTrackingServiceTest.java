@@ -21,15 +21,13 @@ import java.io.IOException;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult.RequestSource.*;
 
 @SpringBootTest(classes = CrimeApplicationTrackingApplication.class, webEnvironment = DEFINED_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ApplicationTrackingServiceTest {
+class ApplicationTrackingServiceTest {
     private MockMvc mvc;
 
     private static MockWebServer mockWebServer;
-    private String content;
 
     private ApplicationTrackingOutputResult applicationTrackingOutputResult;
 
@@ -49,7 +47,7 @@ public class ApplicationTrackingServiceTest {
 
     @BeforeEach
     public void setup() {
-        content = FileUtils.readFileToString("testdata/atsrequest.json");
+        String content = FileUtils.readFileToString("testdata/atsrequest.json");
         applicationTrackingOutputResult = JsonUtils.jsonToObject(content, ApplicationTrackingOutputResult.class);
 
         this.mvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
@@ -149,7 +147,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotProcessCrownCourt_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(CROWN_COURT);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.CROWN_COURT);
         applicationTrackingOutputResult.setUsn(123456);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
@@ -168,7 +166,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldUpdateCapitalAndEquity_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(CAPITAL_AND_EQUITY);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.CAPITAL_AND_EQUITY);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
@@ -186,7 +184,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotUpdateCapitalAndEquity_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(CAPITAL_AND_EQUITY);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.CAPITAL_AND_EQUITY);
         applicationTrackingOutputResult.setUsn(12345);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
@@ -205,7 +203,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessPassportIOJ_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(PASSPORT_IOJ);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.PASSPORT_IOJ);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
@@ -223,7 +221,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotProcessPassportIOJ_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(PASSPORT_IOJ);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.PASSPORT_IOJ);
         applicationTrackingOutputResult.setUsn(12345);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
@@ -242,7 +240,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessMeansAssesment_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(MEANS_ASSESSMENT);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.MEANS_ASSESSMENT);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
@@ -260,7 +258,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequestWithUnknownUSN_shouldNotProcessMeansAssessment_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(MEANS_ASSESSMENT);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.MEANS_ASSESSMENT);
         applicationTrackingOutputResult.setUsn(40400404);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
@@ -274,6 +272,5 @@ public class ApplicationTrackingServiceTest {
                 mvc.perform(request)
                         .andExpect(status().is4xxClientError())
                         .andReturn();
-
     }
 }
