@@ -59,10 +59,15 @@ public class MockWebServerStubs {
             null,
             HttpStatus.OK
     ),
-    EFORM_PREVIOUS_DECISION_HOSTORY(
+    EFORM_PREVIOUS_DECISION_HISTORY(
             "/eform/decision-history/7264893/previous-wrote-to-result",
             null,
             HttpStatus.OK
+    ),
+    EFORM_PREVIOUS_DECISION_HISTORY_404(
+        "/eform/decision-history/40400404/previous-wrote-to-result",
+        null,
+        HttpStatus.NOT_FOUND
     ),
     EFORM_DECISION_HISTORY_USN(
             "/eform/decision-history/7264893",

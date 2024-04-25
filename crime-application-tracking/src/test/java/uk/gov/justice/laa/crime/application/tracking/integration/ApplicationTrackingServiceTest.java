@@ -259,9 +259,9 @@ public class ApplicationTrackingServiceTest {
     }
 
     @Test
-    void givenCreateApplicationRequest_shouldNotProcessMeansAssesment_andThrowError() throws Exception {
+    void givenCreateApplicationRequestWithUnknownUSN_shouldNotProcessMeansAssessment_andThrowError() throws Exception {
         applicationTrackingOutputResult.setRequestSource(MEANS_ASSESSMENT);
-        applicationTrackingOutputResult.setUsn(123456);
+        applicationTrackingOutputResult.setUsn(40400404);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
