@@ -76,7 +76,7 @@ public class MockWebServerStubs {
     ),
     INTERNAL_FINANCIAL_CHECK_OUTSTANDING(
             "/internal/v1/assessment/financial-assessments/check-outstanding/73856111",
-            null,
+            "testdata/OutstandingAssessment_default.json",
             HttpStatus.OK
     ),
     INTERNAL_REP_ORDER_IOJ_ASSESOR_DETAILS(

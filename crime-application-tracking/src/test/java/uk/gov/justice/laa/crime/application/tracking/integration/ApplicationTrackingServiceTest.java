@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.justice.laa.crime.application.tracking.CrimeApplicationTrackingApplication;
 import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult;
+import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult.RequestSource;
 import uk.gov.justice.laa.crime.application.tracking.testutils.FileUtils;
 import uk.gov.justice.laa.crime.application.tracking.testutils.JsonUtils;
 
@@ -56,7 +57,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldCreateAudit_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(CREATE_APPLICATION);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.CREATE_APPLICATION);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
@@ -74,7 +75,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotCreateAudit_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(CREATE_APPLICATION);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.CREATE_APPLICATION);
         applicationTrackingOutputResult.setUsn(123456);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
@@ -93,7 +94,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessHardship_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(HARDSHIP);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.HARDSHIP);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
@@ -111,7 +112,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotProcessHardship_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(HARDSHIP);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.HARDSHIP);
         applicationTrackingOutputResult.setUsn(123456);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
@@ -130,7 +131,7 @@ public class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessCrownCourt_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(CROWN_COURT);
+        applicationTrackingOutputResult.setRequestSource(RequestSource.CROWN_COURT);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
