@@ -24,7 +24,6 @@ class EformsAuditTest {
                 () -> assertEquals(12345, testForm.getUsn()),
                 () -> assertEquals(67890, testForm.getMaatRef()),
                 () -> assertEquals("JohnDoe", testForm.getUserCreated()),
-                // Assuming you have a method to compare LocalDateTime objects
                 () -> assertEquals(now, testForm.getDateCreated()),
                 () -> assertEquals("Active", testForm.getStatusCode())
         );
