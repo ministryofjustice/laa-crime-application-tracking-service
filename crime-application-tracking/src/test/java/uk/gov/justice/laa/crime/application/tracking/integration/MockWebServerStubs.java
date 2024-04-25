@@ -49,6 +49,16 @@ public class MockWebServerStubs {
             null,
             HttpStatus.OK
     ),
+    EFORM_BADUSN(
+            "/eform/12345",
+            null,
+            HttpStatus.BAD_REQUEST
+    ),
+    EFORM_BADUSN_CREATE(
+            "/eform/123456",
+            null,
+            HttpStatus.BAD_REQUEST
+    ),
     EFORM_HISTORY(
             "/eform/history",
             null,
@@ -68,6 +78,16 @@ public class MockWebServerStubs {
         "/eform/decision-history/40400404/previous-wrote-to-result",
         null,
         HttpStatus.NOT_FOUND
+    ),
+    EFORM_PASSPORTIOJ_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
+            "/eform/decision-history/12345/previous-wrote-to-result",
+            null,
+            HttpStatus.BAD_REQUEST
+    ),
+    EFORM_HARDSHIP_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
+            "/eform/decision-history/123456/previous-wrote-to-result",
+            null,
+            HttpStatus.BAD_REQUEST
     ),
     EFORM_DECISION_HISTORY_USN(
             "/eform/decision-history/7264893",

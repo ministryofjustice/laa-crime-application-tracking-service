@@ -37,9 +37,6 @@ public class ApplicationTrackingServiceTest {
 
     @BeforeAll
     public void initialiseMockWebServer() throws IOException {
-        content = FileUtils.readFileToString("testdata/atsrequest.json");
-        applicationTrackingOutputResult = JsonUtils.jsonToObject(content, ApplicationTrackingOutputResult.class);
-
         mockWebServer = new MockWebServer();
         mockWebServer.setDispatcher(MockWebServerStubs.forDownstreamApiCalls());
         mockWebServer.start(9999);
@@ -52,6 +49,9 @@ public class ApplicationTrackingServiceTest {
 
     @BeforeEach
     public void setup() {
+        content = FileUtils.readFileToString("testdata/atsrequest.json");
+        applicationTrackingOutputResult = JsonUtils.jsonToObject(content, ApplicationTrackingOutputResult.class);
+
         this.mvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
     }
 
@@ -187,7 +187,7 @@ public class ApplicationTrackingServiceTest {
     @Test
     void givenCreateApplicationRequest_shouldNotUpdateCapitalAndEquity_andThrowError() throws Exception {
         applicationTrackingOutputResult.setRequestSource(CAPITAL_AND_EQUITY);
-        applicationTrackingOutputResult.setUsn(123456);
+        applicationTrackingOutputResult.setUsn(12345);
         String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
