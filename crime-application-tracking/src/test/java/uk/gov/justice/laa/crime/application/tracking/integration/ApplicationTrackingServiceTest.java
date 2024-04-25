@@ -29,7 +29,7 @@ class ApplicationTrackingServiceTest {
 
     private static MockWebServer mockWebServer;
 
-    private ApplicationTrackingOutputResult applicationTrackingOutputResult;
+    private ApplicationTrackingOutputResult applicationTrackingOutputResultJson;
 
     @Autowired private WebApplicationContext webApplicationContext;
 
@@ -48,15 +48,15 @@ class ApplicationTrackingServiceTest {
     @BeforeEach
     public void setup() {
         String content = FileUtils.readFileToString("testdata/atsrequest.json");
-        applicationTrackingOutputResult = JsonUtils.jsonToObject(content, ApplicationTrackingOutputResult.class);
+        applicationTrackingOutputResultJson = JsonUtils.jsonToObject(content, ApplicationTrackingOutputResult.class);
 
         this.mvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
     }
 
     @Test
     void givenCreateApplicationRequest_shouldCreateAudit_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.CREATE_APPLICATION);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.CREATE_APPLICATION);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -73,9 +73,9 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotCreateAudit_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.CREATE_APPLICATION);
-        applicationTrackingOutputResult.setUsn(123456);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.CREATE_APPLICATION);
+        applicationTrackingOutputResultJson.setUsn(123456);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -92,8 +92,8 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessHardship_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.HARDSHIP);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.HARDSHIP);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -110,9 +110,9 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotProcessHardship_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.HARDSHIP);
-        applicationTrackingOutputResult.setUsn(123456);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.HARDSHIP);
+        applicationTrackingOutputResultJson.setUsn(123456);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -129,8 +129,8 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessCrownCourt_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.CROWN_COURT);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.CROWN_COURT);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -147,9 +147,9 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotProcessCrownCourt_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.CROWN_COURT);
-        applicationTrackingOutputResult.setUsn(123456);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.CROWN_COURT);
+        applicationTrackingOutputResultJson.setUsn(123456);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -166,8 +166,8 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldUpdateCapitalAndEquity_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.CAPITAL_AND_EQUITY);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.CAPITAL_AND_EQUITY);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -184,9 +184,9 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotUpdateCapitalAndEquity_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.CAPITAL_AND_EQUITY);
-        applicationTrackingOutputResult.setUsn(12345);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.CAPITAL_AND_EQUITY);
+        applicationTrackingOutputResultJson.setUsn(12345);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -203,8 +203,8 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessPassportIOJ_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.PASSPORT_IOJ);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.PASSPORT_IOJ);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -221,9 +221,9 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldNotProcessPassportIOJ_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.PASSPORT_IOJ);
-        applicationTrackingOutputResult.setUsn(12345);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.PASSPORT_IOJ);
+        applicationTrackingOutputResultJson.setUsn(12345);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -240,8 +240,8 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequest_shouldProcessMeansAssesment_andDoRequiredUpdates() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.MEANS_ASSESSMENT);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.MEANS_ASSESSMENT);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
@@ -258,9 +258,9 @@ class ApplicationTrackingServiceTest {
 
     @Test
     void givenCreateApplicationRequestWithUnknownUSN_shouldNotProcessMeansAssessment_andThrowError() throws Exception {
-        applicationTrackingOutputResult.setRequestSource(RequestSource.MEANS_ASSESSMENT);
-        applicationTrackingOutputResult.setUsn(40400404);
-        String string = JsonUtils.objectToJson(applicationTrackingOutputResult);
+        applicationTrackingOutputResultJson.setRequestSource(RequestSource.MEANS_ASSESSMENT);
+        applicationTrackingOutputResultJson.setUsn(40400404);
+        String string = JsonUtils.objectToJson(applicationTrackingOutputResultJson);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
                                 "/api/internal/v1/application-tracking-output-result")
