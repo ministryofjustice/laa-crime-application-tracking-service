@@ -14,7 +14,7 @@ import uk.gov.justice.laa.crime.application.tracking.util.BuildRequestsUtil;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ApplicationTrackingServiceCreateTest {
+class ApplicationOutputResultServiceTest {
     private static final String FUNDING_DECISION = "Granted - Passed Means Test";
     @Mock
     private AssessmentAssessorService assessmentAssessorService;
