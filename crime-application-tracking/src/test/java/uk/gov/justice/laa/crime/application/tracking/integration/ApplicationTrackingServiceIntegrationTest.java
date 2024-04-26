@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = CrimeApplicationTrackingApplication.class, webEnvironment = DEFINED_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ApplicationTrackingServiceTest {
+class ApplicationTrackingServiceIntegrationTest {
     private MockMvc mvc;
 
     private static MockWebServer mockWebServer;
