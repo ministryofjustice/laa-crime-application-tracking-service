@@ -4,9 +4,25 @@ server:
 spring:
   security:
     oauth2:
+      client:
+        provider:
+          maatapi:
+            token-uri: ${MAAT_API_OAUTH_URL:http://localhost:9999/oauth2/token}
+        registration:
+          maatapi:
+            client-id: ${MAAT_API_OAUTH_CLIENT_ID:dummy}
+            client-secret: ${MAAT_API_OAUTH_CLIENT_SECRET:dummy}
+            authorization-grant-type: client_credentials
+            scope:
+              - ${MAAT_API_OAUTH_SCOPE:maat-cd-api/standard}
       resource-server:
         jwt:
-          issuer-uri: ${crime-application-tracking.security.issuer-uri}
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:9999}
+
+services:
+  maat-api:
+    baseUrl: ${MAAT_API_BASE_URL:http://localhost:9999}
+    registrationId: ${MAAT_API_REGISTRATION_ID:maatapi}
 
 crime-application-tracking:
   security:
