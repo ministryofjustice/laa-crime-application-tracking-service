@@ -11,140 +11,153 @@ import uk.gov.justice.laa.crime.application.tracking.testutils.FileUtils;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MockWebServerStubs {
 
-  private static final Map<String, RequestPathResponseMapping> PATH_TO_RESPONSE_MAPPING_MAP =
-      Arrays.stream(RequestPathResponseMapping.values())
-          .collect(
-              Collectors.toMap(
-                  RequestPathResponseMapping::getRequestPath,
-                  requestPathResponseMapping -> requestPathResponseMapping));
+    private static final Map<String, RequestPathResponseMapping> PATH_TO_RESPONSE_MAPPING_MAP =
+            Arrays.stream(RequestPathResponseMapping.values())
+                    .collect(
+                            Collectors.toMap(
+                                    RequestPathResponseMapping::getRequestPath,
+                                    requestPathResponseMapping -> requestPathResponseMapping));
 
-  public static Dispatcher forDownstreamApiCalls() {
-    return new Dispatcher() {
-      @NotNull @Override
-      public MockResponse dispatch(@NotNull RecordedRequest recordedRequest) {
-        String requestPath = recordedRequest.getPath();
-        RequestPathResponseMapping responseMapping = PATH_TO_RESPONSE_MAPPING_MAP.get(requestPath);
-        return responseMapping.getMockResponse();
-      }
-    };
-  }
-
-  enum RequestPathResponseMapping {
-    OAUTH2(
-            "/oauth2/token",
-            "testdata/OAuth2Response.json",
-            HttpStatus.OK
-    ),
-    EFORM_AUDIT(
-            "/eform/audit",
-            null,
-            HttpStatus.OK
-    ),
-    EFORM(
-            "/eform/7264893",
-            null,
-            HttpStatus.OK
-    ),
-    EFORM_BADUSN(
-            "/eform/12345",
-            null,
-            HttpStatus.BAD_REQUEST
-    ),
-    EFORM_BADUSN_CREATE(
-            "/eform/123456",
-            null,
-            HttpStatus.BAD_REQUEST
-    ),
-    EFORM_HISTORY(
-            "/eform/history",
-            null,
-            HttpStatus.OK
-    ),
-    EFORM_DECISION_HISTORY(
-"/eform/decision-history",
-            null,
-            HttpStatus.OK
-    ),
-    EFORM_PREVIOUS_DECISION_HISTORY(
-            "/eform/decision-history/7264893/previous-wrote-to-result",
-            null,
-            HttpStatus.OK
-    ),
-    EFORM_PREVIOUS_DECISION_HISTORY_404(
-        "/eform/decision-history/40400404/previous-wrote-to-result",
-        null,
-        HttpStatus.NOT_FOUND
-    ),
-    EFORM_PASSPORTIOJ_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
-            "/eform/decision-history/12345/previous-wrote-to-result",
-            null,
-            HttpStatus.BAD_REQUEST
-    ),
-    EFORM_HARDSHIP_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
-            "/eform/decision-history/123456/previous-wrote-to-result",
-            null,
-            HttpStatus.BAD_REQUEST
-    ),
-    EFORM_DECISION_HISTORY_USN(
-            "/eform/decision-history/7264893",
-            null,
-            HttpStatus.OK
-    ),
-    EFORM_RESULTS(
-            "/eform/results",
-            null,
-            HttpStatus.OK
-    ),
-    INTERNAL_FINANCIAL_CHECK_OUTSTANDING(
-            "/internal/v1/assessment/financial-assessments/check-outstanding/73856111",
-            "testdata/OutstandingAssessment_default.json",
-            HttpStatus.OK
-    ),
-    INTERNAL_REP_ORDER_IOJ_ASSESOR_DETAILS(
-            "/internal/v1/assessment/rep-orders/73856111/ioj-assessor-details",
-            null,
-            HttpStatus.OK
-    ),
-    INTERNAL_FINANCIAL_MEANS_ASSESOR_DETAILS(
-            "/internal/v1/assessment/financial-assessments/85478545/means-assessor-details",
-            null,
-            HttpStatus.OK
-    ),
-    INTERNAL_PASSPORT_ASSESOR_DETAILS(
-            "/internal/v1/assessment/passport-assessments/98658658/passport-assessor-details",
-            null,
-            HttpStatus.OK
-    );
-
-    private final String requestPath;
-    private final String responseBodyFilePath;
-    private final HttpStatus httpResponseStatus;
-
-    RequestPathResponseMapping(
-        String requestPath, String responseBodyFilePath, HttpStatus httpResponseStatus) {
-      this.requestPath = requestPath;
-      this.responseBodyFilePath = responseBodyFilePath;
-      this.httpResponseStatus = httpResponseStatus;
+    public static Dispatcher forDownstreamApiCalls() {
+        return new Dispatcher() {
+            @NotNull
+            @Override
+            public MockResponse dispatch(@NotNull RecordedRequest recordedRequest) {
+                String requestPath = recordedRequest.getPath();
+                RequestPathResponseMapping responseMapping = PATH_TO_RESPONSE_MAPPING_MAP.get(requestPath);
+                if (Objects.isNull(responseMapping)) {
+                    return createNotFoundMockResponse(requestPath);
+                }
+                return responseMapping.getMockResponse();
+            }
+        };
     }
 
-    String getRequestPath() {
-      return requestPath;
+    private static MockResponse createNotFoundMockResponse(String requestPath) {
+        String message = "Unable to find a request-response mapping for the path [%s]".formatted(requestPath);
+        return new MockResponse()
+                .addHeader("Content-Type", MediaType.TEXT_PLAIN_VALUE).
+                setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .setBody(message);
     }
 
-    MockResponse getMockResponse() {
-      MockResponse mockResponse =
-          new MockResponse()
-              .addHeader("Content-Type", MediaType.APPLICATION_JSON)
-              .setResponseCode(httpResponseStatus.value());
+    enum RequestPathResponseMapping {
+        OAUTH2(
+                "/oauth2/token",
+                "testdata/OAuth2Response.json",
+                HttpStatus.OK
+        ),
+        EFORM_AUDIT(
+                "/eform/audit",
+                null,
+                HttpStatus.OK
+        ),
+        EFORM(
+                "/eform/7264893",
+                null,
+                HttpStatus.OK
+        ),
+        EFORM_BADUSN(
+                "/eform/12345",
+                null,
+                HttpStatus.BAD_REQUEST
+        ),
+        EFORM_BADUSN_CREATE(
+                "/eform/123456",
+                null,
+                HttpStatus.BAD_REQUEST
+        ),
+        EFORM_HISTORY(
+                "/eform/history",
+                null,
+                HttpStatus.OK
+        ),
+        EFORM_DECISION_HISTORY(
+                "/eform/decision-history",
+                null,
+                HttpStatus.OK
+        ),
+        EFORM_PREVIOUS_DECISION_HISTORY(
+                "/eform/decision-history/7264893/previous-wrote-to-result",
+                null,
+                HttpStatus.OK
+        ),
+        EFORM_PREVIOUS_DECISION_HISTORY_404(
+                "/eform/decision-history/40400404/previous-wrote-to-result",
+                null,
+                HttpStatus.NOT_FOUND
+        ),
+        EFORM_PASSPORTIOJ_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
+                "/eform/decision-history/12345/previous-wrote-to-result",
+                null,
+                HttpStatus.BAD_REQUEST
+        ),
+        EFORM_HARDSHIP_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
+                "/eform/decision-history/123456/previous-wrote-to-result",
+                null,
+                HttpStatus.BAD_REQUEST
+        ),
+        EFORM_DECISION_HISTORY_USN(
+                "/eform/decision-history/7264893",
+                null,
+                HttpStatus.OK
+        ),
+        EFORM_RESULTS(
+                "/eform/results",
+                null,
+                HttpStatus.OK
+        ),
+        INTERNAL_FINANCIAL_CHECK_OUTSTANDING(
+                "/internal/v1/assessment/financial-assessments/check-outstanding/73856111",
+                "testdata/OutstandingAssessment_default.json",
+                HttpStatus.OK
+        ),
+        INTERNAL_REP_ORDER_IOJ_ASSESOR_DETAILS(
+                "/internal/v1/assessment/rep-orders/73856111/ioj-assessor-details",
+                null,
+                HttpStatus.OK
+        ),
+        INTERNAL_FINANCIAL_MEANS_ASSESOR_DETAILS(
+                "/internal/v1/assessment/financial-assessments/85478545/means-assessor-details",
+                null,
+                HttpStatus.OK
+        ),
+        INTERNAL_PASSPORT_ASSESOR_DETAILS(
+                "/internal/v1/assessment/passport-assessments/98658658/passport-assessor-details",
+                null,
+                HttpStatus.OK
+        );
 
-      if (StringUtils.isNotBlank(responseBodyFilePath)) {
-        mockResponse.setBody(FileUtils.readFileToString(responseBodyFilePath));
-      }
-      return mockResponse;
+        private final String requestPath;
+        private final String responseBodyFilePath;
+        private final HttpStatus httpResponseStatus;
+
+        RequestPathResponseMapping(
+                String requestPath, String responseBodyFilePath, HttpStatus httpResponseStatus) {
+            this.requestPath = requestPath;
+            this.responseBodyFilePath = responseBodyFilePath;
+            this.httpResponseStatus = httpResponseStatus;
+        }
+
+        String getRequestPath() {
+            return requestPath;
+        }
+
+        MockResponse getMockResponse() {
+            MockResponse mockResponse =
+                    new MockResponse()
+                            .addHeader("Content-Type", MediaType.APPLICATION_JSON)
+                            .setResponseCode(httpResponseStatus.value());
+
+            if (StringUtils.isNotBlank(responseBodyFilePath)) {
+                mockResponse.setBody(FileUtils.readFileToString(responseBodyFilePath));
+            }
+            return mockResponse;
+        }
     }
-  }
 }
