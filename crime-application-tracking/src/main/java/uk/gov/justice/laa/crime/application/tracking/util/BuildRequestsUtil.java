@@ -27,9 +27,8 @@ public class BuildRequestsUtil {
                 .repDecision(applicationTrackingOutputResult.getRepDecision())
                 .ccRepDecision(applicationTrackingOutputResult.getCcRepDecision())
                 .assessmentId(applicationTrackingOutputResult.getAssessmentId())
-                .assessmentType(applicationTrackingOutputResult.getAssessmentType().value())
+                .assessmentType(Objects.nonNull(applicationTrackingOutputResult.getAssessmentType()) ? applicationTrackingOutputResult.getAssessmentType().value() : null)
                 .wroteToResults(WROTE_TO_RESULTS);
-
         buildIoj(ioj, eformsDecisionHistoryBuilder);
         buildMeansAssessment(meansAssessment, eformsDecisionHistoryBuilder);
         buildPassport(passport, eformsDecisionHistoryBuilder);
