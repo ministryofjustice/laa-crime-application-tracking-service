@@ -35,7 +35,7 @@ public class BuildRequestsUtil {
 
         if (Objects.nonNull(hardship)) {
             eformsDecisionHistoryBuilder
-                    .hardshipResult(hardship.getHardshipResult().value());
+                    .hardshipResult(Objects.nonNull(hardship.getHardshipResult()) ? hardship.getHardshipResult().value() : null);
         }
         return eformsDecisionHistoryBuilder.build();
     }
@@ -43,7 +43,7 @@ public class BuildRequestsUtil {
     private void buildPassport(Passport passport, EformsDecisionHistory.EformsDecisionHistoryBuilder eformsDecisionHistoryBuilder) {
         if (Objects.nonNull(passport)) {
             eformsDecisionHistoryBuilder
-                    .passportResult(passport.getPassportResult().value())
+                    .passportResult(Objects.nonNull(passport.getPassportResult()) ? passport.getPassportResult().value() : null)
                     .passportAssessorName(passport.getPassportAssessorName())
                     .datePassportCreated(Objects.nonNull(passport.getPassportCreatedDate()) ? LocalDate.from(passport.getPassportCreatedDate()) : null);
         }
@@ -52,7 +52,7 @@ public class BuildRequestsUtil {
     private void buildMeansAssessment(MeansAssessment meansAssessment, EformsDecisionHistory.EformsDecisionHistoryBuilder eformsDecisionHistoryBuilder) {
         if (Objects.nonNull(meansAssessment)) {
             eformsDecisionHistoryBuilder
-                    .meansResult(meansAssessment.getMeansAssessmentResult().value())
+                    .meansResult(Objects.nonNull(meansAssessment.getMeansAssessmentResult()) ? meansAssessment.getMeansAssessmentResult().value() : null)
                     .meansAssessorName(meansAssessment.getMeansAssessorName())
                     .dateMeansCreated(Objects.nonNull(meansAssessment.getMeansAssessmentCreatedDate()) ? LocalDate.from(meansAssessment.getMeansAssessmentCreatedDate()) : null);
         }
@@ -65,7 +65,7 @@ public class BuildRequestsUtil {
                     .iojResult(ioj.getIojResult())
                     .iojAssessorName(ioj.getIojAssessorName())
                     .iojReason(ioj.getIojReason())
-                    .iojAppealResult(ioj.getIojAppealResult().value());
+                    .iojAppealResult(Objects.nonNull(ioj.getIojAppealResult()) ? ioj.getIojAppealResult().value() : null);
         }
     }
 
@@ -91,7 +91,7 @@ public class BuildRequestsUtil {
                 .datePassportCreated(passport.getPassportCreatedDate())
                 .dwpResult(applicationTrackingOutputResult.getDwpResult())
                 .iojAppealResult(Objects.nonNull(ioj.getIojAppealResult()) ? ioj.getIojAppealResult().value() : null)
-                .caseType(applicationTrackingOutputResult.getCaseType().value())
+                .caseType(Objects.nonNull(applicationTrackingOutputResult.getCaseType()) ? applicationTrackingOutputResult.getCaseType().value() : null)
                 .stage(null).build();
     }
 }
