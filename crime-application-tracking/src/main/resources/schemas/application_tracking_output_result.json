@@ -74,7 +74,7 @@
         "passport_result": {
           "type": "string",
           "nullable": true,
-          "enum": ["PASS", "FAIL", "FAIL CONTINUE", "TEMP"]
+          "enum": ["PASS", "FAIL", "FAIL CONTINUE", "TEMP", null]
         },
         "passport_assessor_name": {
           "type": "string",
@@ -107,7 +107,7 @@
         "means_assessment_result": {
           "type": "string",
           "nullable": true,
-          "enum": ["FULL", "PASS", "FAIL", "HARDSHIP APPLICATION", "INEL"]
+          "enum": ["FULL", "PASS", "FAIL", "HARDSHIP APPLICATION", "INEL", null]
         },
         "means_assessor_name": {
           "type": "string",
@@ -136,7 +136,7 @@
         "hardship_type": {
           "type": "string",
           "nullable": true,
-          "enum": ["MCHARDSHIP", "CCHARDSHIP"]
+          "enum": ["MCHARDSHIP", "CCHARDSHIP", null]
         }
       }
     },
@@ -148,7 +148,7 @@
     "assessment_type": {
       "type": "string",
       "nullable": true,
-      "enum": ["MCHARDSHIP", "MEANS_INIT", "CCHARDSHIP", "IOJ", "MEANS_FULL", "PASSPORT"],
+      "enum": ["MCHARDSHIP", "MEANS_INIT", "CCHARDSHIP", "IOJ", "MEANS_FULL", "PASSPORT", null],
       "description": "IOJ type or Finance assessment type or Passport assessment type or Hardship type"
     },
     "dwp_result": {
