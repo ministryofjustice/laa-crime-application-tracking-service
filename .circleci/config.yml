@@ -266,11 +266,11 @@ workflows:
             branches:
               only:
                 - main
+          context: laa-crime-apps-slack
 
       - build_scan_and_push_image:
           requires:
             - build_and_scan
-          context: laa-crime-apps-slack
 
       - deploy-dev:
           requires:
@@ -314,11 +314,11 @@ workflows:
             branches:
               ignore:
                 - main
+          context: laa-crime-apps-slack
 
       - build_scan_and_push_image:
           requires:
             - build_and_scan
-          context: laa-crime-apps-slack
 
       - hold_install_on_dev:
           type: approval
