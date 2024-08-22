@@ -32,4 +32,24 @@ env:
     value: {{ .Values.maatApi.registrationId }}
   - name: MAAT_API_OAUTH_SCOPE
     value: {{ .Values.maatApi.oauthScope }}
+  - name: DATASOURCE_HOST_PORT
+    valueFrom:
+      secretKeyRef:
+        name: rds-postgresql-instance-output
+        key: rds_instance_endpoint
+  - name: DATASOURCE_DBNAME
+    valueFrom:
+      secretKeyRef:
+        name: rds-postgresql-instance-output
+        key: database_name
+  - name: DATASOURCE_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: rds-postgresql-instance-output
+        key: database_username
+  - name: DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: rds-postgresql-instance-output
+        key: database_password
 {{- end -}}
