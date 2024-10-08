@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SoftAssertionsExtension.class)
-public class EmailNotificationsListenerTest {
+class EmailNotificationsListenerTest {
 
     @InjectMocks
     private EmailNotificationsListener emailNotificationsListener;

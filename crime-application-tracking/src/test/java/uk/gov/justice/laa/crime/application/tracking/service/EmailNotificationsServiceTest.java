@@ -16,7 +16,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class EmailNotificationsServiceTest {
+class EmailNotificationsServiceTest {
     @Mock
     private EmailBounceReportRepository emailBounceReportRepository;
 

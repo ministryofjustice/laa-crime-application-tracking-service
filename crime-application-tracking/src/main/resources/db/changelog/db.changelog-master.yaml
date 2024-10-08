@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/changeset/01-crime-application-tracking-create-schema.sql
   - include:
       file: db/changelog/changeset/02-create-email-bounce-report-table.sql
+  - include:
+      file: db/changelog/changeset/03-alter-email-bounce-report-table.sql
