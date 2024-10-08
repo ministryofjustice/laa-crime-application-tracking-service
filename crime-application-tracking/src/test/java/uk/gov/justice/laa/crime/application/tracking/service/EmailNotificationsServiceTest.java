@@ -23,10 +23,6 @@ class EmailNotificationsServiceTest {
     @InjectMocks
     private EmailNotificationsService emailNotificationsService;
 
-    @BeforeEach
-    void setup() {
-
-    }
     @Test
     void shouldProcessEmailBounceReport() {
 
