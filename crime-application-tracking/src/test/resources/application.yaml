@@ -37,6 +37,13 @@ spring:
     show-sql: true
     generate-ddl: false
 
+  cloud:
+    aws:
+      credentials:
+        use-default-aws-credentials-chain: true
+      region:
+        static: us-east-1
+
 services:
   maat-api:
     baseUrl: ${MAAT_API_BASE_URL:http://localhost:9999}
@@ -45,3 +52,13 @@ services:
 crime-application-tracking:
   security:
     issuer-uri: http://localhost:${server.port}
+
+feature:
+  email_notifications:
+    enabled: false
+
+cloud-platform:
+  aws:
+    sqs:
+      queue:
+        email_notifications: test_queue

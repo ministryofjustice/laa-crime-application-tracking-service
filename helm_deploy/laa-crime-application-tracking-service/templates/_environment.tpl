@@ -52,4 +52,10 @@ env:
       secretKeyRef:
         name: rds-postgresql-instance-output
         key: database_password
+  - name: EMAIL_NOTIFICATIONS_LISTENER_ENABLED
+    value: {{ .Values.cloudPlatform.aws.sqs.enabled | quote }}
+  {{- if .Values.cloudPlatform.aws.sqs.enabled }}
+  - name: EMAIL_NOTIFICATIONS_QUEUE
+    value: {{ .Values.cloudPlatform.aws.sqs.queue.email_notifications }}
+  {{- end }}
 {{- end -}}
