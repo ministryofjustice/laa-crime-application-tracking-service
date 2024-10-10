@@ -17,16 +17,19 @@ java {
 }
 
 def versions = [
-		pitest                  : "1.16.1",
-		okhttpVersion          : "4.9.3",
-		mockwebserverVersion   : "4.12.0",
-		sentryVersion			: "7.12.0",
-		validationapiVersion    : '2.0.1.Final',
-		commonsioVersion       : '2.11.0',
-		springdocVersion       : "2.6.0",
-		commonsLang3Version    : "3.14.0",
-		resilience4jVersion    : "2.2.0",
-		postgresqlVersion     : "42.7.3"
+		pitest                 			 : "1.16.1",
+		okhttpVersion         			 : "4.9.3",
+		mockwebserverVersion   			 : "4.12.0",
+		sentryVersion					 : "7.12.0",
+		validationapiVersion   			 : '2.0.1.Final',
+		commonsioVersion     			 : '2.11.0',
+		springdocVersion      			 : "2.6.0",
+		commonsLang3Version   			 : "3.14.0",
+		resilience4jVersion    			 : "2.2.0",
+		postgresqlVersion     			 : "42.7.3",
+		amazonSQSVersion                 : "2.1.1",
+		springFrameworkCloudVersion      : "3.0.1",
+		awsSdkStsVersion                 : "2.20.69"
 ]
 configurations {
 	compileOnly {
@@ -53,6 +56,11 @@ dependencies {
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$versions.springdocVersion"
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3Version"
 	implementation "io.github.resilience4j:resilience4j-spring-boot3:$versions.resilience4jVersion"
+
+	implementation "io.awspring.cloud:spring-cloud-aws-starter-sqs:$versions.springFrameworkCloudVersion"
+	implementation "org.springframework:spring-jms"
+	implementation "com.amazonaws:amazon-sqs-java-messaging-lib:$versions.amazonSQSVersion"
+	implementation "software.amazon.awssdk:sts:$versions.awsSdkStsVersion"
 
 	implementation "org.postgresql:postgresql:$versions.postgresqlVersion"
 	implementation "org.liquibase:liquibase-core"

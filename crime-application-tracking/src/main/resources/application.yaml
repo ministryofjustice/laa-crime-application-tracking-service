@@ -84,6 +84,13 @@ spring:
         jwt:
           issuer-uri: ${JWT_ISSUER_URI}
 
+  cloud:
+    aws:
+      credentials:
+        use-default-aws-credentials-chain: true
+      region:
+        static: eu-west-2
+
 services:
   maat-api:
     baseUrl: ${MAAT_API_BASE_URL}
@@ -97,3 +104,13 @@ sentry:
   send-default-pii: true
   attach-stacktrace: true
   sample-rate: ${SENTRY_SAMPLE_RATE}
+
+feature:
+  email_notifications:
+    enabled: ${EMAIL_NOTIFICATIONS_LISTENER_ENABLED}
+
+cloud-platform:
+  aws:
+    sqs:
+      queue:
+        email_notifications: ${EMAIL_NOTIFICATIONS_QUEUE}
