@@ -29,7 +29,7 @@ The apps should then startup cleanly if you run
 ### Application Set up
 
 Clone Repository
-
+ 
 ```sh
 git clone git@github.com:ministryofjustice/laa-crime-application-tracking-service.git
 
