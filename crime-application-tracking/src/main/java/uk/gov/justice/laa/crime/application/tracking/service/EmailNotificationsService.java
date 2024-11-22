@@ -24,7 +24,7 @@ public class EmailNotificationsService {
     private final EmailBounceReportRepository emailBounceReportRepository;
 
     public void processEmailNotification(Message message) {
-        log.info("Processing email notification data {}", message);
+        log.info("Processing email notification data");
         if (Objects.nonNull(message) && BOUNCE.equals(message.getNotificationType())) {
             List<EmailBounceReport> emailBounceReports = buildEmailBounceReports(message);
             if (!CollectionUtils.isEmpty(emailBounceReports)) {
