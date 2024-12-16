@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class EmailNotificationsService {
     private static final String BOUNCE = "Bounce";
+    private static final int MAX_ERROR_MESSAGE_LENGTH = 1000;
 
     private final EmailBounceReportRepository emailBounceReportRepository;
 
@@ -48,7 +49,11 @@ public class EmailNotificationsService {
         List<EmailBounceReport> emailBounceReports = new ArrayList<>();
         bouncedRecipients.forEach(bouncedRecipient -> {
             emailBounceReportBuilder.recipientEmailAddress(bouncedRecipient.getEmailAddress());
-            emailBounceReportBuilder.errorMessage(bouncedRecipient.getDiagnosticCode());
+            String errorMessage = bouncedRecipient.getDiagnosticCode();
+            if (errorMessage.length() > MAX_ERROR_MESSAGE_LENGTH) {
+                errorMessage = errorMessage.substring(0, MAX_ERROR_MESSAGE_LENGTH);
+            }
+            emailBounceReportBuilder.errorMessage(errorMessage);
             emailBounceReports.add(emailBounceReportBuilder.build());
         });
         return emailBounceReports;
