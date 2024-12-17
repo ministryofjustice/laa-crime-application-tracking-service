@@ -5,7 +5,7 @@ This is a Java 21 based Spring Boot application hosted on [MOJ Cloud Platform](h
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ### Obtaining environment variables for running locally
- 
+
 To run the app locally, you will need to download the appropriate environment variables from the team vault in 1Password. These environment variables are stored as a .env file, which docker-compose uses when starting up the service. If you don't see the team vault, speak to your tech lead to get access.
 
 To begin with, make sure that you have the 1Password CLI installed:
