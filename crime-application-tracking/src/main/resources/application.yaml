@@ -114,3 +114,12 @@ cloud-platform:
     sqs:
       queue:
         email_notifications: ${EMAIL_NOTIFICATIONS_QUEUE}
+      listener:
+        # Graceful shutdown timeout (in milliseconds)
+        shutdown:
+          timeout: 60000  # 60 seconds to allow all tasks to finish before shutdown
+        polling:
+          # Timeout for the polling operation (in milliseconds)
+          timeout: 60000  # Long polling timeout for messages
+        visibility:
+          timeout: 60  # Visibility timeout for messages in seconds
