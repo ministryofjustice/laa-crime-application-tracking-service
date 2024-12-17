@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changeset/02-create-email-bounce-report-table.sql
   - include:
       file: db/changelog/changeset/03-alter-email-bounce-report-table.sql
+  - include:
+      file: db/changelog/changeset/04-alter-email-bounce-report-table.sql
