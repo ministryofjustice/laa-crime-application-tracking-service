@@ -24,7 +24,7 @@ def versions = [
 		validationapiVersion   			 : '2.0.1.Final',
 		commonsioVersion     			 : '2.11.0',
 		springdocVersion      			 : "2.8.8",
-		commonsLang3Version   			 : "3.14.0",
+		commonsLang3Version   			 : "3.17.0",
 		resilience4jVersion    			 : "2.2.0",
 		postgresqlVersion     			 : "42.7.3",
 		amazonSQSVersion                 : "2.1.1",
