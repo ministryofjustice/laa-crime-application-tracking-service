@@ -22,10 +22,10 @@ jwt:
   issuerUri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_cuKi4RLL5
 
 maatApi:
-  baseUrl: https://maat-cd-api.legalservices.gov.uk/api
-  oauthUrl: https://maat-cd-api-prd.auth.eu-west-2.amazoncognito.com/oauth2/token
+  baseUrl: https://laa-maat-data-api-prod.apps.live.cloud-platform.service.justice.gov.uk/api
+  oauthUrl: https://maat-api-prd.auth.eu-west-2.amazoncognito.com/oauth2/token
   registrationId: maatapi
-  oauthScope: maat-cd-api/standard
+  oauthScope: maat-api-prod/standard
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -40,18 +40,7 @@ service:
   targetPort: 8490
 
 ingress:
-  enabled: true
-  annotations:
-    external-dns.alpha.kubernetes.io/aws-weight: "100"
-    external-dns.alpha.kubernetes.io/set-identifier: "laa-crime-application-tracking-service-laa-crime-application-tracking-service-prod-green"
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "300"
-  externalAnnotations: {}
-  hosts:
-    - host: laa-crime-application-tracking-service-prod.apps.live.cloud-platform.service.justice.gov.uk
-      paths: ["/open-api/", "/swagger-ui/", "/api-docs"]
-  tls: []
-  className: default
+  enabled: false
 
 autoscaling:
   enabled: false
