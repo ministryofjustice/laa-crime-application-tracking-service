@@ -5,7 +5,7 @@ plugins {
 	id "org.sonarqube" version "6.2.0.5505"
 	id "info.solidsoft.pitest" version "1.15.0"
 	id 'org.springframework.boot' version '3.5.0'
-	id 'io.spring.dependency-management' version '1.1.5'
+	id 'io.spring.dependency-management' version '1.1.7'
 	id 'org.jsonschema2dataclass' version '6.0.0'
 }
 
@@ -24,7 +24,7 @@ def versions = [
 		validationapiVersion   			 : '2.0.1.Final',
 		commonsioVersion     			 : '2.11.0',
 		springdocVersion      			 : "2.8.8",
-		commonsLang3Version   			 : "3.14.0",
+		commonsLang3Version   			 : "3.17.0",
 		resilience4jVersion    			 : "2.2.0",
 		postgresqlVersion     			 : "42.7.3",
 		amazonSQSVersion                 : "2.1.1",
