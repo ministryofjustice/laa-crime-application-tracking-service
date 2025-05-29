@@ -14,7 +14,7 @@ public class CrimeApplicationTrackingTestConfiguration {
 
     static final String SUB = "sub";
     static final String AUTH0_TOKEN = "token";
-    static final String AUTH_ID = "4jefq4i3331tf3d850ve49qofm";
+    static final String AUTH_ID = "TESTIDi3331tf3d850ve49qofm";
 
     @Bean
     public JwtDecoder jwtDecoder() {
