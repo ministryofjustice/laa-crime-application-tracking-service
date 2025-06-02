@@ -30,7 +30,7 @@ def versions = [
 		amazonSQSVersion                 : "2.1.1",
 		springFrameworkCloudVersion      : "3.0.1",
 		awsSdkStsVersion                 : "2.20.69",
-		oauth2ResourceServer             : "3.4.1",
+		oauth2ResourceServer             : "3.5.0",
 		securityCrypto                   : "6.4.4",
 ]
 configurations {
