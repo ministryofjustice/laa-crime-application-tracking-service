@@ -28,7 +28,7 @@ def versions = [
 		resilience4jVersion    			 : "2.2.0",
 		postgresqlVersion     			 : "42.7.3",
 		amazonSQSVersion                 : "2.1.1",
-		springFrameworkCloudVersion      : "3.0.1",
+		springFrameworkCloudVersion      : "3.3.1",
 		awsSdkStsVersion                 : "2.20.69",
 		oauth2ResourceServer             : "3.4.1",
 		securityCrypto                   : "6.4.4",
