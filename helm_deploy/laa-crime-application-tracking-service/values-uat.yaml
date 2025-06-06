@@ -22,10 +22,10 @@ jwt:
   issuerUri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_cuKi4RLL5
 
 maatApi:
-  baseUrl: https://maat-cd-api.uat.legalservices.gov.uk/api
-  oauthUrl: https://maat-cd-api-uat.auth.eu-west-2.amazoncognito.com/oauth2/token
+  baseUrl: https://laa-maat-data-api-uat.apps.live.cloud-platform.service.justice.gov.uk/api
+  oauthUrl: https://maat-api-uat.auth.eu-west-2.amazoncognito.com/oauth2/token
   registrationId: maatapi
-  oauthScope: maat-cd-api/standard
+  oauthScope: maat-api-uat/standard
 
 serviceAccount:
   # Specifies whether a service account should be created
