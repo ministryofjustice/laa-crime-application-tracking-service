@@ -7,3 +7,11 @@ databaseChangeLog:
       file: db/changelog/changeset/03-alter-email-bounce-report-table.sql
   - include:
       file: db/changelog/changeset/04-alter-email-bounce-report-table.sql
+  - include:
+      file: db/changelog/changeset/05-create-application-audit-table.sql
+  - include:
+      file: db/changelog/changeset/06-create-application-history-table.sql
+  - include:
+      file: db/changelog/changeset/07-create-application-decision-history-table.sql
+  - include:
+      file: db/changelog/changeset/08-create-application-result-table.sql
