@@ -1,0 +1,11 @@
+--liquibase formatted sql
+--changeset Josh Hunt:11-alter-application-decision-history-table.sql
+
+ALTER TABLE crime_application_tracking.APPLICATION_DECISION_HISTORY
+ALTER COLUMN DATE_APP_CREATED TYPE TIMESTAMP;
+
+ALTER TABLE crime_application_tracking.APPLICATION_DECISION_HISTORY
+ALTER COLUMN DATE_MEANS_CREATED TYPE TIMESTAMP;
+
+ALTER TABLE crime_application_tracking.APPLICATION_DECISION_HISTORY
+ALTER COLUMN DATE_PASSPORT_CREATED TYPE TIMESTAMP;

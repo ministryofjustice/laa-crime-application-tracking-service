@@ -15,3 +15,11 @@ databaseChangeLog:
       file: db/changelog/changeset/07-create-application-decision-history-table.sql
   - include:
       file: db/changelog/changeset/08-create-application-result-table.sql
+  - include:
+      file: db/changelog/changeset/09-alter-application-audit-table.sql
+  - include:
+      file: db/changelog/changeset/10-alter-application-history-table.sql
+  - include:
+      file: db/changelog/changeset/11-alter-application-decision-history-table.sql
+  - include:
+      file: db/changelog/changeset/12-alter-application-result-table.sql
