@@ -213,7 +213,7 @@ class ApplicationTrackingServiceIntegrationTest {
     }
 
     @Test
-    void givenCreateApplicationRequest_shouldProcessMeansAssesment_andDoRequiredUpdates() throws Exception {
+    void givenCreateApplicationRequest_shouldProcessMeansAssessment_andDoRequiredUpdates() throws Exception {
         String content = createApplicationTrackingOutputResult(RequestSource.MEANS_ASSESSMENT);
         RequestBuilder request =
                 MockMvcRequestBuilders.post(
