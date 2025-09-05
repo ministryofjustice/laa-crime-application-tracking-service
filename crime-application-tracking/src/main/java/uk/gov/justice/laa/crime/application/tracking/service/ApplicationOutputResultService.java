@@ -3,6 +3,7 @@ package uk.gov.justice.laa.crime.application.tracking.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import uk.gov.justice.laa.crime.application.tracking.entity.DecisionHistory;
 import uk.gov.justice.laa.crime.application.tracking.model.*;
 import uk.gov.justice.laa.crime.application.tracking.util.BuildRequestsUtil;
 import uk.gov.justice.laa.crime.application.tracking.util.FundingDecisionUtil;
@@ -17,16 +18,16 @@ public class ApplicationOutputResultService {
 
     private static final String DEFAULT_VALUE = "Z";
     private final AssessmentAssessorService assessmentAssessorService;
-    private final EformsDecisionHistoryService eformsDecisionHistoryService;
-    private final EformResultsService eformResultsService;
+    private final DecisionHistoryService decisionHistoryService;
+    private final ResultService resultsService;
     private final EformStagingService eformStagingService;
 
     public void processOutputResult(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         if (!isOutstandingAssessment(applicationTrackingOutputResult.getMaatRef())) {
             String fundingDecision = FundingDecisionUtil.getFundingDecision(applicationTrackingOutputResult);
             getAssessorNames(applicationTrackingOutputResult);
-            createEformDecisionHistoryRecord(applicationTrackingOutputResult, fundingDecision);
-            createEformResultRecord(applicationTrackingOutputResult, fundingDecision);
+            createDecisionHistoryRecord(applicationTrackingOutputResult, fundingDecision);
+            createResultRecord(applicationTrackingOutputResult, fundingDecision);
         }
     }
 
@@ -72,28 +73,28 @@ public class ApplicationOutputResultService {
         }
     }
 
-    private void createEformDecisionHistoryRecord(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
+    private void createDecisionHistoryRecord(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         if (Objects.nonNull(applicationTrackingOutputResult.getRepDecision())
                 || Objects.nonNull(applicationTrackingOutputResult.getCcRepDecision())) {
-            EformsDecisionHistory eformsDecisionHistory = BuildRequestsUtil.buildEformDecisionHistory(applicationTrackingOutputResult, fundingDecision);
-            eformsDecisionHistoryService.createEformsDecisionHistoryRecord(eformsDecisionHistory);
+            DecisionHistory decisionHistory = BuildRequestsUtil.buildDecisionHistory(applicationTrackingOutputResult, fundingDecision);
+            decisionHistoryService.createDecisionHistoryRecord(decisionHistory);
         }
     }
 
-    private void createEformResultRecord(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
+    private void createResultRecord(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
         if (Objects.nonNull(fundingDecision)
                 && isOutputResultChanged(applicationTrackingOutputResult, fundingDecision)) {
-            eformResultsService.createEformResult(applicationTrackingOutputResult, fundingDecision);
+            resultsService.createResult(applicationTrackingOutputResult, fundingDecision);
             Integer usn = applicationTrackingOutputResult.getUsn();
-            eformsDecisionHistoryService.updateWroteResult(usn);
+            decisionHistoryService.updateWroteResult(usn);
             eformStagingService.updateStatus(usn);
         }
     }
 
     private boolean isOutputResultChanged(ApplicationTrackingOutputResult applicationTrackingOutputResult, String fundingDecision) {
-        EformsDecisionHistory previousResult = eformsDecisionHistoryService.getPreviousDecisionResult(applicationTrackingOutputResult.getUsn());
+        DecisionHistory previousResult = decisionHistoryService.getPreviousDecisionResult(applicationTrackingOutputResult.getUsn());
         if (Objects.nonNull(previousResult) && Objects.nonNull(previousResult.getId())) {
-            BiPredicate<ApplicationTrackingOutputResult, EformsDecisionHistory> isResultUnchanged = (outputResult, previousRecord) ->
+            BiPredicate<ApplicationTrackingOutputResult, DecisionHistory> isResultUnchanged = (outputResult, previousRecord) ->
             {
                 String iojResult = Objects.nonNull(outputResult.getIoj()) ? outputResult.getIoj().getIojResult() : DEFAULT_VALUE;
                 String meansResult = Objects.nonNull(outputResult.getMeansAssessment()) ? outputResult.getMeansAssessment().getMeansAssessmentResult().value() : DEFAULT_VALUE;
