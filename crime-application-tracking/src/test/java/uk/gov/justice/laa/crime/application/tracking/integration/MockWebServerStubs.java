@@ -52,11 +52,6 @@ public class MockWebServerStubs {
                 "testdata/OAuth2Response.json",
                 HttpStatus.OK
         ),
-        EFORM_AUDIT(
-                "/eform/audit",
-                null,
-                HttpStatus.OK
-        ),
         EFORM(
                 "/eform/7264893",
                 null,
@@ -71,46 +66,6 @@ public class MockWebServerStubs {
                 "/eform/123456",
                 null,
                 HttpStatus.BAD_REQUEST
-        ),
-        EFORM_HISTORY(
-                "/eform/history",
-                null,
-                HttpStatus.OK
-        ),
-        EFORM_DECISION_HISTORY(
-                "/eform/decision-history",
-                null,
-                HttpStatus.OK
-        ),
-        EFORM_PREVIOUS_DECISION_HISTORY(
-                "/eform/decision-history/7264893/previous-wrote-to-result",
-                null,
-                HttpStatus.OK
-        ),
-        EFORM_PREVIOUS_DECISION_HISTORY_404(
-                "/eform/decision-history/40400404/previous-wrote-to-result",
-                null,
-                HttpStatus.NOT_FOUND
-        ),
-        EFORM_PASSPORTIOJ_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
-                "/eform/decision-history/12345/previous-wrote-to-result",
-                null,
-                HttpStatus.BAD_REQUEST
-        ),
-        EFORM_HARDSHIP_PREVIOUS_DECISION_HISTORY_BAD_REQUEST(
-                "/eform/decision-history/123456/previous-wrote-to-result",
-                null,
-                HttpStatus.BAD_REQUEST
-        ),
-        EFORM_DECISION_HISTORY_USN(
-                "/eform/decision-history/7264893",
-                null,
-                HttpStatus.OK
-        ),
-        EFORM_RESULTS(
-                "/eform/results",
-                null,
-                HttpStatus.OK
         ),
         INTERNAL_FINANCIAL_CHECK_OUTSTANDING(
                 "/internal/v1/assessment/financial-assessments/check-outstanding/73856111",
