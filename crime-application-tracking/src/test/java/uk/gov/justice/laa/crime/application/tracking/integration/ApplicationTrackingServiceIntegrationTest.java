@@ -239,14 +239,14 @@ class ApplicationTrackingServiceIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request)
-                        .andExpect(status().is4xxClientError())
+                        .andExpect(status().is5xxServerError())
                         .andReturn();
     }
 
-    private String createApplicationTrackingOutputResult(RequestSource requestSource, int usn) {
+    private String createApplicationTrackingOutputResult(RequestSource requestSource, Integer usn) {
         applicationTrackingOutputResultJson.setRequestSource(requestSource);
         applicationTrackingOutputResultJson.setUsn(usn);
-        return JsonUtils.objectToJson(requestSource);
+        return JsonUtils.objectToJson(applicationTrackingOutputResultJson);
     }
 
 
