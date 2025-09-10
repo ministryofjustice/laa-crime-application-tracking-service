@@ -5,6 +5,7 @@ services:
     environment:
       - SENTRY_ENV=development
       - SENTRY_SAMPLE_RATE=0.0
+      - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8383"
 
     env_file:
       - app.env
