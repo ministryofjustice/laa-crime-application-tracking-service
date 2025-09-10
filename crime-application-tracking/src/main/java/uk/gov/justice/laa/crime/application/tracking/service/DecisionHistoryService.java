@@ -34,6 +34,7 @@ public class DecisionHistoryService {
     }
 
     @Retry(name = SERVICE_NAME)
+    @Transactional(readOnly = true)
     public DecisionHistory getPreviousDecisionResult(Integer usn) {
         log.info("Start - call to get previous Decision History Wrote to Result for {}", usn);
         DecisionHistory decisionHistory = getPreviousDecisionHistoryRecordWroteToResult(usn);
@@ -42,6 +43,7 @@ public class DecisionHistoryService {
     }
 
     @Retry(name = SERVICE_NAME)
+    @Transactional
     public void updateWroteResult(Integer usn) {
         log.info("Start - call to update wrote to result in Decision History for {}", usn);
         DecisionHistory decisionHistory = DecisionHistory.builder().wroteToResults(WROTE_TO_RESULTS).build();
