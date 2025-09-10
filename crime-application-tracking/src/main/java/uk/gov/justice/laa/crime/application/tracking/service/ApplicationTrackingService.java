@@ -3,6 +3,7 @@ package uk.gov.justice.laa.crime.application.tracking.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult;
 
 @Service
@@ -15,6 +16,7 @@ public class ApplicationTrackingService {
     private final HistoryService historyService;
     private final ApplicationOutputResultService applicationOutputResultService;
 
+    @Transactional
     public void processApplicationTrackingAndOutputResultData(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         Integer usn = applicationTrackingOutputResult.getUsn();
         ApplicationTrackingOutputResult.RequestSource requestSource = applicationTrackingOutputResult.getRequestSource();

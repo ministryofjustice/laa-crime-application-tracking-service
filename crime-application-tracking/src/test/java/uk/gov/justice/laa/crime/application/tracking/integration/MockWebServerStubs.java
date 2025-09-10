@@ -57,13 +57,39 @@ public class MockWebServerStubs {
                 null,
                 HttpStatus.OK
         ),
+
+        EFORM_NEW_APPLICATION(
+            "/eform/111",
+            null,
+            HttpStatus.OK
+        ),
+
+        EFORM_CROWN_COURT(
+            "/eform/222",
+            null,
+            HttpStatus.OK
+        ),
+
+        EFORM_HARDSHIP(
+            "/eform/333",
+            null,
+            HttpStatus.OK
+        ),
+
+        EFORM_MEANS_ASSESSMENT(
+            "/eform/444",
+            null,
+            HttpStatus.OK
+        ),
+
+        EFORM_PASSPORT_IOJ(
+            "/eform/555",
+            null,
+            HttpStatus.OK
+        ),
+        
         EFORM_BADUSN(
                 "/eform/12345",
-                null,
-                HttpStatus.BAD_REQUEST
-        ),
-        EFORM_BADUSN_CREATE(
-                "/eform/123456",
                 null,
                 HttpStatus.BAD_REQUEST
         ),

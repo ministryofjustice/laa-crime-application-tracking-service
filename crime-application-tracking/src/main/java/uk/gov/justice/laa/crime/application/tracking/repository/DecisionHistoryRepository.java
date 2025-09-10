@@ -10,4 +10,6 @@ public interface DecisionHistoryRepository extends JpaRepository<DecisionHistory
     Optional<DecisionHistory> findFirstByUsnAndWroteToResultsOrderByIdDesc(Integer usn, String wroteResult);
 
     DecisionHistory findTopByUsnOrderByIdDesc(Integer usn);
+
+    Optional<DecisionHistory> findByUsn(Integer usn);
 }
