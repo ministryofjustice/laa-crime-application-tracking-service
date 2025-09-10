@@ -51,15 +51,13 @@ public class DecisionHistoryService {
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
             .observe(() -> log.info("Decision History record is updated successfully"));
     }
-
-    @Transactional(readOnly = true)
-    public DecisionHistory getPreviousDecisionHistoryRecordWroteToResult(Integer usn) {
+    
+    private DecisionHistory getPreviousDecisionHistoryRecordWroteToResult(Integer usn) {
         return decisionHistoryRepository.findFirstByUsnAndWroteToResultsOrderByIdDesc(usn, WROTE_TO_RESULTS)
             .orElse(DecisionHistory.builder().build());
     }
-
-    @Transactional
-    public void updateDecisionHistoryFields(Integer usn, DecisionHistory decisionHistory) {
+    
+    private void updateDecisionHistoryFields(Integer usn, DecisionHistory decisionHistory) {
         DecisionHistory latestDecisionHistory = Optional.ofNullable(decisionHistoryRepository.findTopByUsnOrderByIdDesc(usn))
             .orElseThrow(() -> new ApplicationTrackingException(
                 HttpStatus.NOT_FOUND, String.format(USN_NOT_FOUND, usn)));
