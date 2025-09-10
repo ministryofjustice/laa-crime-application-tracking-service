@@ -40,7 +40,7 @@ class ApplicationTrackingServiceIntegrationTest {
     private static MockWebServer mockWebServer;
     private ApplicationTrackingOutputResult applicationTrackingOutputResultJson;
     private static final String WROTE_TO_RESULTS = "Y";
-    private String STATUS_CODE = "Processing";
+    private static final String STATUS_CODE = "Processing";
     private static final Integer NEW_APPLICATION_USN = 111;
     private static final Integer CROWN_COURT_USN = 222;
     private static final Integer HARDSHIP_USN = 333;
