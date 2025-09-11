@@ -11,7 +11,6 @@ import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOu
 public class ApplicationTrackingService {
 
     private final EformAuditService eformAuditService;
-    private final EformStagingService eformStagingService;
     private final EformsHistoryService eformsHistoryService;
     private final ApplicationOutputResultService applicationOutputResultService;
 
@@ -22,12 +21,10 @@ public class ApplicationTrackingService {
         switch (requestSource) {
             case CREATE_APPLICATION -> {
                 eformAuditService.createAudit(applicationTrackingOutputResult);
-                eformStagingService.updateMaatId(usn, applicationTrackingOutputResult.getMaatRef());
                 eformsHistoryService.createEformHistory(applicationTrackingOutputResult);
                 applicationOutputResultService.processOutputResult(applicationTrackingOutputResult);
             }
             case HARDSHIP, CROWN_COURT -> applicationOutputResultService.processOutputResult(applicationTrackingOutputResult);
-            case CAPITAL_AND_EQUITY -> eformStagingService.updateStatus(usn);
             case PASSPORT_IOJ, MEANS_ASSESSMENT -> {
                 eformsHistoryService.createEformHistory(applicationTrackingOutputResult);
                 applicationOutputResultService.processOutputResult(applicationTrackingOutputResult);

@@ -14,10 +14,6 @@ public interface MaatCourtDataApiClient {
     @PostExchange("/eform/audit")
     void createEformsAuditRecord(@RequestBody EformsAudit eformsAudit);
 
-    @PatchExchange("/eform/{usn}")
-    void updateEformStagingRecord(@PathVariable Integer usn,
-                                  @RequestBody EformsStaging eformsStaging);
-
     @PostExchange("/eform/history")
     void createEformsHistoryRecord(@RequestBody EformsHistory eformsHistory);
 

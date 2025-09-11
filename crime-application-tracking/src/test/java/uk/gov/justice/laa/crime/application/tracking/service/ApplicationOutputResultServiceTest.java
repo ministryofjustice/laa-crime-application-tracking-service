@@ -22,8 +22,6 @@ class ApplicationOutputResultServiceTest {
     private EformsDecisionHistoryService eformsDecisionHistoryService;
     @Mock
     private EformResultsService eformResultsService;
-    @Mock
-    private EformStagingService eformStagingService;
 
     @InjectMocks
     private ApplicationOutputResultService applicationOutputResultService;
@@ -46,7 +44,6 @@ class ApplicationOutputResultServiceTest {
         verify(eformsDecisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
         verify(eformResultsService, times(1)).createEformResult(atsRequest, FUNDING_DECISION);
         verify(eformsDecisionHistoryService, times(1)).updateWroteResult(atsRequest.getUsn());
-        verify(eformStagingService, times(1)).updateStatus(atsRequest.getUsn());
     }
 
     @Test
@@ -68,7 +65,6 @@ class ApplicationOutputResultServiceTest {
         verify(eformsDecisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
         verify(eformResultsService, times(0)).createEformResult(atsRequest, FUNDING_DECISION);
         verify(eformsDecisionHistoryService, times(0)).updateWroteResult(atsRequest.getUsn());
-        verify(eformStagingService, times(0)).updateStatus(atsRequest.getUsn());
     }
 
     @Test
@@ -97,7 +93,6 @@ class ApplicationOutputResultServiceTest {
         verify(eformsDecisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
         verify(eformResultsService, times(1)).createEformResult(atsRequest, FUNDING_DECISION);
         verify(eformsDecisionHistoryService, times(1)).updateWroteResult(atsRequest.getUsn());
-        verify(eformStagingService, times(1)).updateStatus(atsRequest.getUsn());
     }
 
 }

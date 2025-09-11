@@ -19,7 +19,6 @@ public class ApplicationOutputResultService {
     private final AssessmentAssessorService assessmentAssessorService;
     private final EformsDecisionHistoryService eformsDecisionHistoryService;
     private final EformResultsService eformResultsService;
-    private final EformStagingService eformStagingService;
 
     public void processOutputResult(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         if (!isOutstandingAssessment(applicationTrackingOutputResult.getMaatRef())) {
@@ -86,7 +85,6 @@ public class ApplicationOutputResultService {
             eformResultsService.createEformResult(applicationTrackingOutputResult, fundingDecision);
             Integer usn = applicationTrackingOutputResult.getUsn();
             eformsDecisionHistoryService.updateWroteResult(usn);
-            eformStagingService.updateStatus(usn);
         }
     }
 

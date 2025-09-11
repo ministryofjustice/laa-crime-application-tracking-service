@@ -20,8 +20,6 @@ class ApplicationTrackingServiceTest {
     @Mock
     private EformAuditService eformAuditService;
     @Mock
-    private EformStagingService eformStagingService;
-    @Mock
     private EformsHistoryService eformsHistoryService;
     @Mock
     private ApplicationOutputResultService applicationOutputResultService;
@@ -38,28 +36,23 @@ class ApplicationTrackingServiceTest {
         switch (requestSource){
             case CREATE_APPLICATION -> {
                 verify(eformAuditService, times(1)).createAudit(atsRequest);
-                verify(eformStagingService, times(1)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
                 verify(eformsHistoryService, times(1)).createEformHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
             }
             case HARDSHIP, CROWN_COURT -> {
                 verify(eformAuditService, times(0)).createAudit(atsRequest);
-                verify(eformStagingService, times(0)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
                 verify(eformsHistoryService, times(0)).createEformHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
             }
             case MEANS_ASSESSMENT, PASSPORT_IOJ -> {
                 verify(eformAuditService, times(0)).createAudit(atsRequest);
-                verify(eformStagingService, times(0)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
                 verify(eformsHistoryService, times(1)).createEformHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
             }
             case CAPITAL_AND_EQUITY -> {
                 verify(eformAuditService, times(0)).createAudit(atsRequest);
-                verify(eformStagingService, times(0)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
                 verify(eformsHistoryService, times(0)).createEformHistory(atsRequest);
                 verify(applicationOutputResultService, times(0)).processOutputResult(atsRequest);
-                verify(eformStagingService, times(1)).updateStatus(atsRequest.getUsn());
 
             }
         }
