@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uk.gov.justice.laa.crime.application.tracking.entity.DecisionHistory;
 import uk.gov.justice.laa.crime.application.tracking.exception.ApplicationTrackingException;
-import uk.gov.justice.laa.crime.application.tracking.helper.ReflectionHelper;
 import uk.gov.justice.laa.crime.application.tracking.repository.DecisionHistoryRepository;
 
 @Service
@@ -46,8 +45,14 @@ public class DecisionHistoryService {
     @Transactional
     public void updateWroteResult(Integer usn) {
         log.info("Start - call to update wrote to result in Decision History for {}", usn);
-        DecisionHistory decisionHistory = DecisionHistory.builder().wroteToResults(WROTE_TO_RESULTS).build();
-        updateDecisionHistoryFields(usn, decisionHistory);
+
+        DecisionHistory latestDecisionHistory = Optional.ofNullable(decisionHistoryRepository.findTopByUsnOrderByIdDesc(usn))
+            .orElseThrow(() -> new ApplicationTrackingException(
+                HttpStatus.NOT_FOUND, String.format(USN_NOT_FOUND, usn)));
+
+        latestDecisionHistory.setWroteToResults(WROTE_TO_RESULTS);
+        decisionHistoryRepository.save(latestDecisionHistory);
+        
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
             .observe(() -> log.info("Decision History record is updated successfully"));
     }
@@ -55,14 +60,5 @@ public class DecisionHistoryService {
     private DecisionHistory getPreviousDecisionHistoryRecordWroteToResult(Integer usn) {
         return decisionHistoryRepository.findFirstByUsnAndWroteToResultsOrderByIdDesc(usn, WROTE_TO_RESULTS)
             .orElse(DecisionHistory.builder().build());
-    }
-    
-    private void updateDecisionHistoryFields(Integer usn, DecisionHistory decisionHistory) {
-        DecisionHistory latestDecisionHistory = Optional.ofNullable(decisionHistoryRepository.findTopByUsnOrderByIdDesc(usn))
-            .orElseThrow(() -> new ApplicationTrackingException(
-                HttpStatus.NOT_FOUND, String.format(USN_NOT_FOUND, usn)));
-
-        ReflectionHelper.updateEntityFromObject(latestDecisionHistory, decisionHistory);
-        decisionHistoryRepository.save(latestDecisionHistory);
     }
 }
