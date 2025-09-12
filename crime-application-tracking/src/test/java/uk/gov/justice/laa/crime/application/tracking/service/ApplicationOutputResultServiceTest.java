@@ -5,8 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import uk.gov.justice.laa.crime.application.tracking.entity.DecisionHistory;
 import uk.gov.justice.laa.crime.application.tracking.model.AssessorDetails;
-import uk.gov.justice.laa.crime.application.tracking.model.EformsDecisionHistory;
 import uk.gov.justice.laa.crime.application.tracking.model.OutstandingAssessment;
 import uk.gov.justice.laa.crime.application.tracking.testutils.TestData;
 import uk.gov.justice.laa.crime.application.tracking.util.BuildRequestsUtil;
@@ -19,9 +19,9 @@ class ApplicationOutputResultServiceTest {
     @Mock
     private AssessmentAssessorService assessmentAssessorService;
     @Mock
-    private EformsDecisionHistoryService eformsDecisionHistoryService;
+    private DecisionHistoryService decisionHistoryService;
     @Mock
-    private EformResultsService eformResultsService;
+    private ResultService resultService;
 
     @InjectMocks
     private ApplicationOutputResultService applicationOutputResultService;
@@ -31,8 +31,8 @@ class ApplicationOutputResultServiceTest {
         var atsRequest = TestData.getAtsRequest();
         OutstandingAssessment outstandingAssessment = OutstandingAssessment.builder().build();
         when(assessmentAssessorService.checkOutstandingAssessment(atsRequest.getMaatRef())).thenReturn(outstandingAssessment);
-        EformsDecisionHistory eformsDecisionHistory =EformsDecisionHistory.builder().build();
-        when(eformsDecisionHistoryService.getPreviousDecisionResult(atsRequest.getUsn())).thenReturn(eformsDecisionHistory);
+        DecisionHistory decisionHistory = DecisionHistory.builder().build();
+        when(decisionHistoryService.getPreviousDecisionResult(atsRequest.getUsn())).thenReturn(decisionHistory);
 
         applicationOutputResultService.processOutputResult(atsRequest);
 
@@ -40,10 +40,10 @@ class ApplicationOutputResultServiceTest {
         verify(assessmentAssessorService, times(0)).getIOJAssessor(atsRequest.getMaatRef());
         verify(assessmentAssessorService, times(0)).getMeansAssessor(atsRequest.getMeansAssessment().getMeansAssessmentId());
         verify(assessmentAssessorService, times(0)).getPassportAssessor(atsRequest.getPassport().getPassportId());
-        verify(eformsDecisionHistoryService, times(1)).createEformsDecisionHistoryRecord(any());
-        verify(eformsDecisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
-        verify(eformResultsService, times(1)).createEformResult(atsRequest, FUNDING_DECISION);
-        verify(eformsDecisionHistoryService, times(1)).updateWroteResult(atsRequest.getUsn());
+        verify(decisionHistoryService, times(1)).createDecisionHistoryRecord(any());
+        verify(decisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
+        verify(resultService, times(1)).createResult(atsRequest, FUNDING_DECISION);
+        verify(decisionHistoryService, times(1)).updateWroteResult(atsRequest.getUsn());
     }
 
     @Test
@@ -51,9 +51,9 @@ class ApplicationOutputResultServiceTest {
         var atsRequest = TestData.getAtsRequest();
         OutstandingAssessment outstandingAssessment = OutstandingAssessment.builder().build();
         when(assessmentAssessorService.checkOutstandingAssessment(atsRequest.getMaatRef())).thenReturn(outstandingAssessment);
-        EformsDecisionHistory eformsDecisionHistory = BuildRequestsUtil.buildEformDecisionHistory(atsRequest, FUNDING_DECISION);
-        eformsDecisionHistory.setId(65412363);
-        when(eformsDecisionHistoryService.getPreviousDecisionResult(atsRequest.getUsn())).thenReturn(eformsDecisionHistory);
+        DecisionHistory decisionHistory = BuildRequestsUtil.buildDecisionHistory(atsRequest, FUNDING_DECISION);
+        decisionHistory.setId(65412363);
+        when(decisionHistoryService.getPreviousDecisionResult(atsRequest.getUsn())).thenReturn(decisionHistory);
 
         applicationOutputResultService.processOutputResult(atsRequest);
 
@@ -61,10 +61,10 @@ class ApplicationOutputResultServiceTest {
         verify(assessmentAssessorService, times(0)).getIOJAssessor(atsRequest.getMaatRef());
         verify(assessmentAssessorService, times(0)).getMeansAssessor(atsRequest.getMeansAssessment().getMeansAssessmentId());
         verify(assessmentAssessorService, times(0)).getPassportAssessor(atsRequest.getPassport().getPassportId());
-        verify(eformsDecisionHistoryService, times(1)).createEformsDecisionHistoryRecord(any());
-        verify(eformsDecisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
-        verify(eformResultsService, times(0)).createEformResult(atsRequest, FUNDING_DECISION);
-        verify(eformsDecisionHistoryService, times(0)).updateWroteResult(atsRequest.getUsn());
+        verify(decisionHistoryService, times(1)).createDecisionHistoryRecord(any());
+        verify(decisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
+        verify(resultService, times(0)).createResult(atsRequest, FUNDING_DECISION);
+        verify(decisionHistoryService, times(0)).updateWroteResult(atsRequest.getUsn());
     }
 
     @Test
@@ -77,8 +77,8 @@ class ApplicationOutputResultServiceTest {
         AssessorDetails assessorDetails = AssessorDetails.builder().fullName("Test User").build();
         OutstandingAssessment outstandingAssessment = OutstandingAssessment.builder().build();
         when(assessmentAssessorService.checkOutstandingAssessment(atsRequest.getMaatRef())).thenReturn(outstandingAssessment);
-        EformsDecisionHistory eformsDecisionHistory =EformsDecisionHistory.builder().build();
-        when(eformsDecisionHistoryService.getPreviousDecisionResult(atsRequest.getUsn())).thenReturn(eformsDecisionHistory);
+        DecisionHistory decisionHistory = DecisionHistory.builder().build();
+        when(decisionHistoryService.getPreviousDecisionResult(atsRequest.getUsn())).thenReturn(decisionHistory);
         when(assessmentAssessorService.getIOJAssessor(atsRequest.getMaatRef())).thenReturn(assessorDetails);
         when(assessmentAssessorService.getMeansAssessor(atsRequest.getMeansAssessment().getMeansAssessmentId())).thenReturn(assessorDetails);
         when(assessmentAssessorService.getPassportAssessor(atsRequest.getPassport().getPassportId())).thenReturn(assessorDetails);
@@ -89,10 +89,10 @@ class ApplicationOutputResultServiceTest {
         verify(assessmentAssessorService, times(1)).getIOJAssessor(atsRequest.getMaatRef());
         verify(assessmentAssessorService, times(1)).getMeansAssessor(atsRequest.getMeansAssessment().getMeansAssessmentId());
         verify(assessmentAssessorService, times(1)).getPassportAssessor(atsRequest.getPassport().getPassportId());
-        verify(eformsDecisionHistoryService, times(1)).createEformsDecisionHistoryRecord(any());
-        verify(eformsDecisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
-        verify(eformResultsService, times(1)).createEformResult(atsRequest, FUNDING_DECISION);
-        verify(eformsDecisionHistoryService, times(1)).updateWroteResult(atsRequest.getUsn());
+        verify(decisionHistoryService, times(1)).createDecisionHistoryRecord(any());
+        verify(decisionHistoryService, times(1)).getPreviousDecisionResult(atsRequest.getUsn());
+        verify(resultService, times(1)).createResult(atsRequest, FUNDING_DECISION);
+        verify(decisionHistoryService, times(1)).updateWroteResult(atsRequest.getUsn());
     }
 
 }

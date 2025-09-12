@@ -6,30 +6,33 @@ import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import uk.gov.justice.laa.crime.application.tracking.client.MaatCourtDataApiClient;
+import uk.gov.justice.laa.crime.application.tracking.entity.Audit;
 import uk.gov.justice.laa.crime.application.tracking.model.ApplicationTrackingOutputResult;
-import uk.gov.justice.laa.crime.application.tracking.model.EformsAudit;
+import uk.gov.justice.laa.crime.application.tracking.repository.AuditRepository;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class EformAuditService {
-    private static final String SERVICE_NAME = "eformAuditService";
+public class AuditService {
+    private static final String SERVICE_NAME = "auditService";
     private static final String STATUS_CODE = "Processing";
-    private final MaatCourtDataApiClient maatCourtDataApiClient;
+    private final AuditRepository auditRepository;
     private final ObservationRegistry observationRegistry;
 
     @Retry(name = SERVICE_NAME)
     public void createAudit(ApplicationTrackingOutputResult applicationTrackingOutputResult) {
         Integer usn = applicationTrackingOutputResult.getUsn();
-        log.info("Start - call to Create Eforms Audit record for {}", usn);
-        EformsAudit eformsAudit = EformsAudit.builder()
-                .usn(usn)
-                .maatRef(applicationTrackingOutputResult.getMaatRef())
-                .userCreated(applicationTrackingOutputResult.getUserCreated())
-                .statusCode(STATUS_CODE).build();
-        maatCourtDataApiClient.createEformsAuditRecord(eformsAudit);
+        log.info("Start - call to create Audit record for {}", usn);
+
+        Audit audit = Audit.builder()
+            .usn(usn)
+            .maatRef(applicationTrackingOutputResult.getMaatRef())
+            .userCreated(applicationTrackingOutputResult.getUserCreated())
+            .statusCode(STATUS_CODE).build();
+
+        auditRepository.save(audit);
+
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(() -> log.info("Eform Audit Record is Created Successfully"));
+            .observe(() -> log.info("Audit record is created successfully"));
     }
 }

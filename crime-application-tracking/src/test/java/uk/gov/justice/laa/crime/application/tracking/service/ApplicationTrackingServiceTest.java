@@ -18,9 +18,9 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class ApplicationTrackingServiceTest {
     @Mock
-    private EformAuditService eformAuditService;
+    private AuditService auditService;
     @Mock
-    private EformsHistoryService eformsHistoryService;
+    private HistoryService historyService;
     @Mock
     private ApplicationOutputResultService applicationOutputResultService;
 
@@ -35,25 +35,19 @@ class ApplicationTrackingServiceTest {
         applicationTrackingService.processApplicationTrackingAndOutputResultData(atsRequest);
         switch (requestSource){
             case CREATE_APPLICATION -> {
-                verify(eformAuditService, times(1)).createAudit(atsRequest);
-                verify(eformsHistoryService, times(1)).createEformHistory(atsRequest);
+                verify(auditService, times(1)).createAudit(atsRequest);
+                verify(historyService, times(1)).createHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
             }
             case HARDSHIP, CROWN_COURT -> {
-                verify(eformAuditService, times(0)).createAudit(atsRequest);
-                verify(eformsHistoryService, times(0)).createEformHistory(atsRequest);
+                verify(auditService, times(0)).createAudit(atsRequest);
+                verify(historyService, times(0)).createHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
             }
             case MEANS_ASSESSMENT, PASSPORT_IOJ -> {
-                verify(eformAuditService, times(0)).createAudit(atsRequest);
-                verify(eformsHistoryService, times(1)).createEformHistory(atsRequest);
+                verify(auditService, times(0)).createAudit(atsRequest);
+                verify(historyService, times(1)).createHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
-            }
-            case CAPITAL_AND_EQUITY -> {
-                verify(eformAuditService, times(0)).createAudit(atsRequest);
-                verify(eformsHistoryService, times(0)).createEformHistory(atsRequest);
-                verify(applicationOutputResultService, times(0)).processOutputResult(atsRequest);
-
             }
         }
     }

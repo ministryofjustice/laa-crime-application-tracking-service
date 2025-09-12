@@ -31,7 +31,7 @@ class ApplicationTrackingControllerTest {
     private ApplicationTrackingService applicationTrackingService;
 
     @Test
-    void shouldSuccessfullyProcessApplicationTrackingAndOutputResultForValidaRequest() throws Exception {
+    void shouldSuccessfullyProcessApplicationTrackingAndOutputResultForValidRequest() throws Exception {
         var atsRequest = TestData.getAtsRequest();
         mockMvc.perform(MockMvcRequestBuilders.post(BASE_ENDPOINT_FORMAT).content(JsonUtils.objectToJson(atsRequest))
                         .contentType(MediaType.APPLICATION_JSON))

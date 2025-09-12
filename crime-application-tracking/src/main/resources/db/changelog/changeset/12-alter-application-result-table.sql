@@ -1,0 +1,11 @@
+--liquibase formatted sql
+--changeset Josh Hunt:12-alter-application-result-table.sql
+
+ALTER TABLE crime_application_tracking.APPLICATION_RESULT
+ALTER COLUMN DATE_APP_CREATED TYPE TIMESTAMP;
+
+ALTER TABLE crime_application_tracking.APPLICATION_RESULT
+ALTER COLUMN DATE_MEANS_CREATED TYPE TIMESTAMP;
+
+ALTER TABLE crime_application_tracking.APPLICATION_RESULT
+ALTER COLUMN DATE_PASSPORT_CREATED TYPE TIMESTAMP;
