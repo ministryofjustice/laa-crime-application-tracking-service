@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.justice.laa.crime.application.tracking.client.MaatCourtDataApiClient;
+import uk.gov.justice.laa.crime.application.tracking.repository.HistoryRepository;
 import uk.gov.justice.laa.crime.application.tracking.testutils.TestData;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -13,17 +13,18 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class EformAuditServiceTest {
+class HistoryServiceTest {
+
     @Mock
-    private MaatCourtDataApiClient maatCourtDataApiClient;
+    private HistoryRepository historyRepository;
 
     @InjectMocks
-    private EformAuditService eformAuditService;
+    private HistoryService historyService;
 
     @Test
-    void shouldCreateEformsAuditRecordForGivenATSRequest() {
+    void shouldCreateHistoryRecordForGivenATSRequest() {
         var atsRequest = TestData.getAtsRequest();
-        eformAuditService.createAudit(atsRequest);
-        verify(maatCourtDataApiClient, times(1)).createEformsAuditRecord(any());
+        historyService.createHistory(atsRequest);
+        verify(historyRepository, times(1)).save(any());
     }
 }

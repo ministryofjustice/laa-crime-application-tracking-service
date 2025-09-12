@@ -33,13 +33,13 @@ resilience4j:
     instances:
       assessmentAssessorService:
         base-config: default
-      eformAuditService:
+      auditService:
         base-config: default
-      eformResultsService:
+      resultService:
         base-config: default
-      eformsDecisionHistoryService:
+      decisionHistoryService:
         base-config: default
-      eformsHistoryService:
+      historyService:
         base-config: default
       eformStagingService:
         base-config: default
