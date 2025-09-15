@@ -20,8 +20,6 @@ class ApplicationTrackingServiceTest {
     @Mock
     private AuditService auditService;
     @Mock
-    private EformStagingService eformStagingService;
-    @Mock
     private HistoryService historyService;
     @Mock
     private ApplicationOutputResultService applicationOutputResultService;
@@ -38,29 +36,18 @@ class ApplicationTrackingServiceTest {
         switch (requestSource){
             case CREATE_APPLICATION -> {
                 verify(auditService, times(1)).createAudit(atsRequest);
-                verify(eformStagingService, times(1)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
                 verify(historyService, times(1)).createHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
             }
             case HARDSHIP, CROWN_COURT -> {
                 verify(auditService, times(0)).createAudit(atsRequest);
-                verify(eformStagingService, times(0)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
                 verify(historyService, times(0)).createHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
             }
             case MEANS_ASSESSMENT, PASSPORT_IOJ -> {
                 verify(auditService, times(0)).createAudit(atsRequest);
-                verify(eformStagingService, times(0)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
                 verify(historyService, times(1)).createHistory(atsRequest);
                 verify(applicationOutputResultService, times(1)).processOutputResult(atsRequest);
-            }
-            case CAPITAL_AND_EQUITY -> {
-                verify(auditService, times(0)).createAudit(atsRequest);
-                verify(eformStagingService, times(0)).updateMaatId(atsRequest.getUsn(), atsRequest.getMaatRef());
-                verify(historyService, times(0)).createHistory(atsRequest);
-                verify(applicationOutputResultService, times(0)).processOutputResult(atsRequest);
-                verify(eformStagingService, times(1)).updateStatus(atsRequest.getUsn());
-
             }
         }
     }
@@ -70,8 +57,7 @@ class ApplicationTrackingServiceTest {
                 Arguments.of(ApplicationTrackingOutputResult.RequestSource.PASSPORT_IOJ),
                 Arguments.of(ApplicationTrackingOutputResult.RequestSource.MEANS_ASSESSMENT),
                 Arguments.of(ApplicationTrackingOutputResult.RequestSource.CROWN_COURT),
-                Arguments.of(ApplicationTrackingOutputResult.RequestSource.HARDSHIP),
-                Arguments.of(ApplicationTrackingOutputResult.RequestSource.CAPITAL_AND_EQUITY)
+                Arguments.of(ApplicationTrackingOutputResult.RequestSource.HARDSHIP)
         );
     }
 }
