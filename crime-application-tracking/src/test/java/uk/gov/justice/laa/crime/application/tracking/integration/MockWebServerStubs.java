@@ -52,47 +52,6 @@ public class MockWebServerStubs {
                 "testdata/OAuth2Response.json",
                 HttpStatus.OK
         ),
-        EFORM(
-                "/eform/7264893",
-                null,
-                HttpStatus.OK
-        ),
-
-        EFORM_NEW_APPLICATION(
-            "/eform/111",
-            null,
-            HttpStatus.OK
-        ),
-
-        EFORM_CROWN_COURT(
-            "/eform/222",
-            null,
-            HttpStatus.OK
-        ),
-
-        EFORM_HARDSHIP(
-            "/eform/333",
-            null,
-            HttpStatus.OK
-        ),
-
-        EFORM_MEANS_ASSESSMENT(
-            "/eform/444",
-            null,
-            HttpStatus.OK
-        ),
-
-        EFORM_PASSPORT_IOJ(
-            "/eform/555",
-            null,
-            HttpStatus.OK
-        ),
-        
-        EFORM_BADUSN(
-                "/eform/12345",
-                null,
-                HttpStatus.BAD_REQUEST
-        ),
         INTERNAL_FINANCIAL_CHECK_OUTSTANDING(
                 "/internal/v1/assessment/financial-assessments/check-outstanding/73856111",
                 "testdata/OutstandingAssessment_default.json",
