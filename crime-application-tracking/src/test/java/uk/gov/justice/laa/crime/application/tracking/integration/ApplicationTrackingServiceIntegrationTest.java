@@ -46,7 +46,6 @@ class ApplicationTrackingServiceIntegrationTest {
     private static final Integer HARDSHIP_USN = 333;
     private static final Integer MEANS_ASSESSMENT_USN = 444;
     private static final Integer PASSPORT_IOJ_USN = 555;
-    private static final Integer NOT_FOUND_USN = 12345;
 
     @Autowired
     private AuditRepository auditRepository;
@@ -110,23 +109,6 @@ class ApplicationTrackingServiceIntegrationTest {
 
     }
 
-    @Disabled ( value = "Disabled due to USN not being checked anymore, pending further investigation if this is a valid scenario.")
-    @Test
-    void givenCreateApplicationRequest_shouldNotCreateAudit_andThrowError() throws Exception {
-        String content = createApplicationTrackingOutputResult(RequestSource.CREATE_APPLICATION, NOT_FOUND_USN);
-        RequestBuilder request =
-                MockMvcRequestBuilders.post(
-                                "/api/internal/v1/application-tracking-output-result")
-                        .content(content)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
-                        .andExpect(status().is4xxClientError())
-                        .andReturn();
-
-    }
-
     @Test
     void givenCreateApplicationRequest_shouldProcessHardship_andDoRequiredUpdates() throws Exception {
         String content = createApplicationTrackingOutputResult(RequestSource.HARDSHIP, HARDSHIP_USN);
@@ -149,23 +131,6 @@ class ApplicationTrackingServiceIntegrationTest {
 
     }
 
-    @Disabled ( value = "Disabled due to USN not being checked anymore, pending further investigation if this is a valid scenario.")
-    @Test
-    void givenCreateApplicationRequest_shouldNotProcessHardship_andThrowError() throws Exception {
-        String content = createApplicationTrackingOutputResult(RequestSource.HARDSHIP, NOT_FOUND_USN);
-        RequestBuilder request =
-                MockMvcRequestBuilders.post(
-                                "/api/internal/v1/application-tracking-output-result")
-                        .content(content)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
-                        .andExpect(status().is4xxClientError())
-                        .andReturn();
-
-    }
-
     @Test
     void givenCreateApplicationRequest_shouldProcessCrownCourt_andDoRequiredUpdates() throws Exception {
         String content = createApplicationTrackingOutputResult(RequestSource.CROWN_COURT, CROWN_COURT_USN);
@@ -185,23 +150,6 @@ class ApplicationTrackingServiceIntegrationTest {
 
         Optional<Result> result = resultRepository.findByUsn(CROWN_COURT_USN);
         assertPopulatesResult(result);
-
-    }
-
-    @Disabled ( value = "Disabled due to USN not being checked anymore, pending further investigation if this is a valid scenario.")
-    @Test
-    void givenCreateApplicationRequest_shouldNotProcessCrownCourt_andThrowError() throws Exception {
-        String content = createApplicationTrackingOutputResult(RequestSource.CROWN_COURT, NOT_FOUND_USN);
-        RequestBuilder request =
-                MockMvcRequestBuilders.post(
-                                "/api/internal/v1/application-tracking-output-result")
-                        .content(content)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
-                        .andExpect(status().is4xxClientError())
-                        .andReturn();
 
     }
 
@@ -230,22 +178,6 @@ class ApplicationTrackingServiceIntegrationTest {
 
     }
 
-    @Disabled ( value = "Disabled due to USN not being checked anymore, pending further investigation if this is a valid scenario.")
-    @Test
-    void givenCreateApplicationRequest_shouldNotProcessPassportIOJ_andThrowError() throws Exception {
-        String content = createApplicationTrackingOutputResult(RequestSource.PASSPORT_IOJ, NOT_FOUND_USN);
-        RequestBuilder request =
-                MockMvcRequestBuilders.post(
-                                "/api/internal/v1/application-tracking-output-result")
-                        .content(content)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
-                        .andExpect(status().is4xxClientError())
-                        .andReturn();
-    }
-
     @Test
     void givenCreateApplicationRequest_shouldProcessMeansAssessment_andDoRequiredUpdates() throws Exception {
         String content = createApplicationTrackingOutputResult(RequestSource.MEANS_ASSESSMENT, MEANS_ASSESSMENT_USN);
@@ -270,22 +202,6 @@ class ApplicationTrackingServiceIntegrationTest {
         Optional<Result> result = resultRepository.findByUsn(MEANS_ASSESSMENT_USN);
         assertPopulatesResult(result);
 
-    }
-
-    @Disabled ( value = "Disabled due to USN not being checked anymore, pending further investigation if this is a valid scenario.")
-    @Test
-    void givenCreateApplicationRequestWithUnknownUSN_shouldNotProcessMeansAssessment_andThrowError() throws Exception {
-        String content = createApplicationTrackingOutputResult(RequestSource.MEANS_ASSESSMENT, 40400404);
-        RequestBuilder request =
-                MockMvcRequestBuilders.post(
-                                "/api/internal/v1/application-tracking-output-result")
-                        .content(content)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
-                        .andExpect(status().is5xxServerError())
-                        .andReturn();
     }
 
     private String createApplicationTrackingOutputResult(RequestSource requestSource, Integer usn) {
