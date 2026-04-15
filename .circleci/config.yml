@@ -121,7 +121,7 @@ commands:
 # JOBS
 # ------------------
 jobs:
-  build_and_scan:
+  build_and_scan_app:
     executor: build-executor
     steps:
       - checkout:
@@ -135,7 +135,7 @@ jobs:
           command: ./gradlew clean build
       - run:
           name: Run SonarQube
-          command: ./gradlew sonarqube -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.organization=${SONAR_ORG}
+          command: ./gradlew sonar
       - save_cache:
           paths:
             - ~/.gradle/wrapper
@@ -255,7 +255,7 @@ workflows:
 
   build-deploy-master:
     jobs:
-      - build_and_scan:
+      - build_and_scan_app:
           filters:
             branches:
               only:
@@ -264,7 +264,7 @@ workflows:
 
       - build_scan_and_push_image:
           requires:
-            - build_and_scan
+            - build_and_scan_app
 
       - deploy-dev:
           requires:
@@ -303,7 +303,7 @@ workflows:
 
   build-deploy-branch:
     jobs:
-      - build_and_scan:
+      - build_and_scan_app:
           filters:
             branches:
               ignore:
@@ -312,7 +312,7 @@ workflows:
 
       - build_scan_and_push_image:
           requires:
-            - build_and_scan
+            - build_and_scan_app
 
       - hold_install_on_dev:
           type: approval
