@@ -134,7 +134,7 @@ jobs:
           name: Build
           command: ./gradlew clean build
       - run:
-          name: Run SonarQube
+          name: Run SonarCloud Scan
           command: ./gradlew sonar
       - save_cache:
           paths:
@@ -260,7 +260,7 @@ workflows:
             branches:
               only:
                 - main
-          context: laa-crime-apps-slack
+          context: SonarCloud Crime
 
       - build_scan_and_push_image:
           requires:
@@ -308,7 +308,7 @@ workflows:
             branches:
               ignore:
                 - main
-          context: laa-crime-apps-slack
+          context: SonarCloud Crime
 
       - build_scan_and_push_image:
           requires:
